@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qVCV - Consonant Confusion Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app-container" class="two-column-mode">
+        <h1 id="phase-title">qVCV Test</h1>
+        
+        <div id="instructions-area">
+            <p id="status-msg">Welcome to the qVCV Test.</p>
+        </div>
+
+        <div id="setup-area">
+            <div id="participant-info">
+                <h3>Participant Information</h3>
+                <div class="input-wrapper">
+                    <div class="input-group">
+                        <label for="participant-id">Participant ID:</label>
+                        <input type="text" id="participant-id" placeholder="e.g., NH001">
+                    </div>
+                    <div class="input-group">
+                        <label for="test-ear">Test Ear:</label>
+                        <select id="test-ear">
+                            <option value="Left">Left</option>
+                            <option value="Right">Right</option>
+                            <option value="Both">Both</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="calibration-box">
+                <h3>Step 1: Audio Calibration</h3>
+                <p>Before beginning, click the button below to either adjust your computer's volume until the speech is at a comfortable listening level or play a continuous calibration sound.</p>
+                
+                <div class="calib-options">
+                    <input type="radio" id="calib-speech" name="calib-source" value="speech" checked>
+                    <label for="calib-speech"><strong>Speech</strong> (continuous VCV)</label>
+                    <br>
+                    <input type="radio" id="calib-tone" name="calib-source" value="tone">
+                    <label for="calib-tone"><strong>Tone</strong> (1 kHz, 60 dB SPL)</label>
+                </div>
+
+                <button id="calib-btn">Play Calibration Audio</button>
+            </div>
+        </div>
+
+        <div id="controls">
+            <button id="start-btn">Step 2: Ready to Begin Test</button>
+        </div>
+
+        <div id="interface" class="hidden">
+            <div id="progress-container">
+                <progress id="test-progress" value="0" max="10"></progress>
+                <div id="progress-text">Trial <span id="trial-current">1</span> of <span id="trial-total">10</span></div>
+            </div>
+            <div id="consonant-grid"></div>
+        </div>
+
+        <div id="results-area" class="hidden">
+            <h3>Results Heatmap (Actual vs Listener Response)</h3>
+            <div id="heatmap-container"></div>
+            <div class="action-buttons">
+                <button id="download-btn">Download CSV Results</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
