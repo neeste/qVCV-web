@@ -1,0 +1,342 @@
+{
+  "elapsed_sec": 45.7,
+  "n_reps": 40,
+  "current_ref_snrs_db": {
+    "B": 18,
+    "D": 4,
+    "G": 3,
+    "K": 0,
+    "N": 15,
+    "S": 0,
+    "SH": 0,
+    "T": 0,
+    "V": 18,
+    "Z": 0
+  },
+  "bayes_optimal_single_snrs_db": {
+    "B": 9,
+    "D": -1,
+    "G": -3,
+    "K": -5,
+    "N": 0,
+    "S": -6,
+    "SH": -8,
+    "T": -10,
+    "V": 7,
+    "Z": -10
+  },
+  "balanced_5snr_grid_db": {
+    "B": [
+      6,
+      11,
+      16,
+      21,
+      26
+    ],
+    "D": [
+      -8,
+      -3,
+      2,
+      7,
+      12
+    ],
+    "G": [
+      -9,
+      -4,
+      1,
+      6,
+      11
+    ],
+    "K": [
+      -12,
+      -7,
+      -2,
+      3,
+      8
+    ],
+    "N": [
+      3,
+      8,
+      13,
+      18,
+      23
+    ],
+    "S": [
+      -12,
+      -7,
+      -2,
+      3,
+      8
+    ],
+    "SH": [
+      -12,
+      -7,
+      -2,
+      3,
+      8
+    ],
+    "T": [
+      -12,
+      -7,
+      -2,
+      3,
+      8
+    ],
+    "V": [
+      6,
+      11,
+      16,
+      21,
+      26
+    ],
+    "Z": [
+      -12,
+      -7,
+      -2,
+      3,
+      8
+    ]
+  },
+  "adaptive_wide_5snr_bank_db": {
+    "B": [
+      4,
+      10,
+      16,
+      22,
+      28
+    ],
+    "D": [
+      -10,
+      -4,
+      2,
+      8,
+      14
+    ],
+    "G": [
+      -11,
+      -5,
+      1,
+      7,
+      13
+    ],
+    "K": [
+      -14,
+      -8,
+      -2,
+      4,
+      10
+    ],
+    "N": [
+      1,
+      7,
+      13,
+      19,
+      25
+    ],
+    "S": [
+      -14,
+      -8,
+      -2,
+      4,
+      10
+    ],
+    "SH": [
+      -14,
+      -8,
+      -2,
+      4,
+      10
+    ],
+    "T": [
+      -14,
+      -8,
+      -2,
+      4,
+      10
+    ],
+    "V": [
+      4,
+      10,
+      16,
+      22,
+      28
+    ],
+    "Z": [
+      -14,
+      -8,
+      -2,
+      4,
+      10
+    ]
+  },
+  "efficiency_summary_at_100_trials": [
+    {
+      "arm": "single_current",
+      "description": "Current qVCV 1-SNR (5x @ Ref)",
+      "rmse_all98_db": 1.316,
+      "rmse_nh_slight55_db": 1.347,
+      "rmse_normal_db": 1.42,
+      "rmse_slight_db": 1.239,
+      "rmse_mild_db": 0.957,
+      "rmse_moderate_db": 1.646,
+      "rmse_p90_worst_db": 1.611,
+      "retest_mad_db": 1.044,
+      "r2_global_D": 0.8107,
+      "per_cons_D_rmse_db": 2.665,
+      "mean_errors_normal_100": 3.9,
+      "mean_errors_all98_100": 20.0,
+      "n_eq_all98_global_D": 100.0,
+      "speedup_all98_global_D": 1.0,
+      "n_eq_nh_slight_D": 100.0,
+      "speedup_nh_slight_D": 1.0,
+      "n_eq_per_cons_D": 100.0
+    },
+    {
+      "arm": "single_bayes_opt",
+      "description": "Bayes-Opt 1-SNR (5x)",
+      "rmse_all98_db": 1.334,
+      "rmse_nh_slight55_db": 0.854,
+      "rmse_normal_db": 0.785,
+      "rmse_slight_db": 0.94,
+      "rmse_mild_db": 1.112,
+      "rmse_moderate_db": 2.452,
+      "rmse_p90_worst_db": 2.111,
+      "retest_mad_db": 0.813,
+      "r2_global_D": 0.8488,
+      "per_cons_D_rmse_db": 2.776,
+      "mean_errors_normal_100": 24.4,
+      "mean_errors_all98_100": 42.8,
+      "n_eq_all98_global_D": null,
+      "speedup_all98_global_D": null,
+      "n_eq_nh_slight_D": 25.6,
+      "speedup_nh_slight_D": 3.91,
+      "n_eq_per_cons_D": null
+    },
+    {
+      "arm": "set5_around_ref",
+      "description": "5-SNR Centered on Ref (Ref \u00b18 dB)",
+      "rmse_all98_db": 1.192,
+      "rmse_nh_slight55_db": 1.069,
+      "rmse_normal_db": 1.127,
+      "rmse_slight_db": 0.983,
+      "rmse_mild_db": 0.959,
+      "rmse_moderate_db": 1.756,
+      "rmse_p90_worst_db": 1.407,
+      "retest_mad_db": 1.088,
+      "r2_global_D": 0.8351,
+      "per_cons_D_rmse_db": 2.653,
+      "mean_errors_normal_100": 7.9,
+      "mean_errors_all98_100": 23.6,
+      "n_eq_all98_global_D": 68.7,
+      "speedup_all98_global_D": 1.46,
+      "n_eq_nh_slight_D": 49.5,
+      "speedup_nh_slight_D": 2.02,
+      "n_eq_per_cons_D": 98.1
+    },
+    {
+      "arm": "set5_balanced_span",
+      "description": "Balanced 5-SNR Set (Ref -12..+8 dB)",
+      "rmse_all98_db": 1.211,
+      "rmse_nh_slight55_db": 0.995,
+      "rmse_normal_db": 1.008,
+      "rmse_slight_db": 0.977,
+      "rmse_mild_db": 1.035,
+      "rmse_moderate_db": 1.901,
+      "rmse_p90_worst_db": 1.46,
+      "retest_mad_db": 1.066,
+      "r2_global_D": 0.8362,
+      "per_cons_D_rmse_db": 2.727,
+      "mean_errors_normal_100": 14.6,
+      "mean_errors_all98_100": 29.7,
+      "n_eq_all98_global_D": 72.1,
+      "speedup_all98_global_D": 1.39,
+      "n_eq_nh_slight_D": 42.1,
+      "speedup_nh_slight_D": 2.38,
+      "n_eq_per_cons_D": null
+    },
+    {
+      "arm": "adaptive_1db_vcv",
+      "description": "Adaptive SNR (Uncoupled Per-VCV, Blind)",
+      "rmse_all98_db": 1.02,
+      "rmse_nh_slight55_db": 0.732,
+      "rmse_normal_db": 0.715,
+      "rmse_slight_db": 0.755,
+      "rmse_mild_db": 0.907,
+      "rmse_moderate_db": 1.734,
+      "rmse_p90_worst_db": 1.511,
+      "retest_mad_db": 0.837,
+      "r2_global_D": 0.8876,
+      "per_cons_D_rmse_db": 2.437,
+      "mean_errors_normal_100": 36.3,
+      "mean_errors_all98_100": 45.4,
+      "n_eq_all98_global_D": 47.7,
+      "speedup_all98_global_D": 2.1,
+      "n_eq_nh_slight_D": 24.0,
+      "speedup_nh_slight_D": 4.17,
+      "n_eq_per_cons_D": 75.4
+    },
+    {
+      "arm": "adaptive_5snr_hier",
+      "description": "Adaptive SNR (5-SNR Bank, Hier. Blind)",
+      "rmse_all98_db": 0.982,
+      "rmse_nh_slight55_db": 0.752,
+      "rmse_normal_db": 0.726,
+      "rmse_slight_db": 0.787,
+      "rmse_mild_db": 0.864,
+      "rmse_moderate_db": 1.609,
+      "rmse_p90_worst_db": 1.171,
+      "retest_mad_db": 0.851,
+      "r2_global_D": 0.8943,
+      "per_cons_D_rmse_db": 2.417,
+      "mean_errors_normal_100": 37.4,
+      "mean_errors_all98_100": 43.2,
+      "n_eq_all98_global_D": 43.4,
+      "speedup_all98_global_D": 2.3,
+      "n_eq_nh_slight_D": 28.1,
+      "speedup_nh_slight_D": 3.56,
+      "n_eq_per_cons_D": 72.8
+    },
+    {
+      "arm": "adaptive_1db_hier",
+      "description": "Adaptive SNR (1-dB Bank, Hier. Blind)",
+      "rmse_all98_db": 0.971,
+      "rmse_nh_slight55_db": 0.72,
+      "rmse_normal_db": 0.706,
+      "rmse_slight_db": 0.74,
+      "rmse_mild_db": 0.852,
+      "rmse_moderate_db": 1.626,
+      "rmse_p90_worst_db": 1.285,
+      "retest_mad_db": 0.836,
+      "r2_global_D": 0.8971,
+      "per_cons_D_rmse_db": 2.394,
+      "mean_errors_normal_100": 41.2,
+      "mean_errors_all98_100": 45.8,
+      "n_eq_all98_global_D": 42.3,
+      "speedup_all98_global_D": 2.36,
+      "n_eq_nh_slight_D": 24.7,
+      "speedup_nh_slight_D": 4.05,
+      "n_eq_per_cons_D": 71.2
+    },
+    {
+      "arm": "adaptive_joint_audio",
+      "description": "Adaptive Cons+SNR (Audiogram-Informed)",
+      "rmse_all98_db": 0.996,
+      "rmse_nh_slight55_db": 0.714,
+      "rmse_normal_db": 0.69,
+      "rmse_slight_db": 0.745,
+      "rmse_mild_db": 0.843,
+      "rmse_moderate_db": 1.727,
+      "rmse_p90_worst_db": 1.426,
+      "retest_mad_db": 0.812,
+      "r2_global_D": 0.8915,
+      "per_cons_D_rmse_db": 2.429,
+      "mean_errors_normal_100": 40.0,
+      "mean_errors_all98_100": 46.8,
+      "n_eq_all98_global_D": 39.6,
+      "speedup_all98_global_D": 2.53,
+      "n_eq_nh_slight_D": 26.8,
+      "speedup_nh_slight_D": 3.73,
+      "n_eq_per_cons_D": 75.9
+    }
+  ]
+}

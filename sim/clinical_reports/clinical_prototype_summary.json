@@ -1,0 +1,1214 @@
+{
+  "normative_nh_cutoffs_100_trials": {
+    "n_nh_listeners": 32,
+    "n_nh_sessions": 64,
+    "nh_median_pc_pct": 99.0,
+    "nh_5th_pct_pc_pct": 86.45,
+    "p90_total_deficit_db_snr": 4.5,
+    "p95_total_deficit_db_snr": 5.52,
+    "p90_audibility_deficit_db_snr": 1.0,
+    "p90_ohc_deficit_db_snr": 0.75,
+    "p90_neural_deficit_db_snr": 3.74,
+    "p95_neural_deficit_db_snr": 4.64
+  },
+  "cohort_phenotype_counts_98": {
+    "AUDIBILITY & RECRUITMENT LOSS + MILD CLARITY LOSS": 2,
+    "COCHLEAR RECRUITMENT + MARKED SUPRATHRESHOLD CLARITY LOSS": 9,
+    "HIGH-FREQUENCY LOSS + SUPRATHRESHOLD CLARITY LOSS": 2,
+    "NORMAL HEARING & SPEECH-IN-NOISE CLARITY": 30,
+    "REDUCED AUDIBILITY & COCHLEAR RECRUITMENT (PRESERVED CLARITY)": 52,
+    "SUPRATHRESHOLD CLARITY LOSS WITH NORMAL AUDIOGRAM": 3
+  },
+  "featured_cases": [
+    {
+      "listener_id": "NH013",
+      "ear": "Unspecified",
+      "group": "Normal",
+      "n_trials": 200,
+      "has_measured_qcls": true,
+      "qcls_valid_monotonic": true,
+      "pta_124_db_hl": 8.3,
+      "lf_pta_db_hl": 13.8,
+      "hf_pta_db_hl": 11.2,
+      "ppta_db_hl": 16.2,
+      "practice_pc": 100.0,
+      "emp_pc_s1": 98.0,
+      "emp_pc_s2": 100.0,
+      "emp_pc_pooled": 99.0,
+      "unk_pct": 0.0,
+      "pc_nh_ref": 97.5,
+      "pc_stage1_aud": 97.7,
+      "pc_stage2_periph": 97.5,
+      "pc_stage3_full": 97.1,
+      "total_deficit_db": 0.86,
+      "total_deficit_se_db": 1.05,
+      "audibility_deficit_db": 0.0,
+      "ohc_recruitment_deficit_db": 0.07,
+      "neural_coding_deficit_db": 0.79,
+      "neural_coding_se_db": 1.05,
+      "snr_loss_severity": "Normal",
+      "measured_srt_loss_db": null,
+      "neural_eff_lf_pct": 100.0,
+      "neural_eff_hf_pct": 51.0,
+      "qcls_hf_ohc_db": 6.8,
+      "qcls_hf_ihc_db": 3.2,
+      "hf_erb_broadening_x": 1.25,
+      "hf_smearing_label": "Minimal",
+      "cu5_aud_diff_db": -2.8,
+      "dyn_range_lf_db": 93.8,
+      "dyn_range_hf_db": 83.7,
+      "loudness_growth_cu_per_db": 0.5,
+      "rem_targets": {
+        "freqs_khz": [
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ],
+        "soft_cu15_spl": [
+          56.0,
+          51.0,
+          52.0,
+          60.0
+        ],
+        "comfort_cu25_spl": [
+          81.0,
+          76.0,
+          74.0,
+          83.0
+        ],
+        "mpo_cu50_spl": [
+          111.0,
+          110.0,
+          109.0,
+          112.0
+        ]
+      },
+      "rtr_voicing_pct_nh": 97.0,
+      "rtr_manner_pct_nh": 100.0,
+      "rtr_place_pct_nh": 100.0,
+      "phenotype": "NORMAL HEARING & SPEECH-IN-NOISE CLARITY",
+      "phenotype_color": "#15803D",
+      "qc_checks": [
+        [
+          "PASS",
+          "Audiogram vs. qCLS Softest (CU 5)",
+          "Agrees within -2.8 dB across frequencies."
+        ],
+        [
+          "PASS",
+          "Clear-Speech Practice (Quiet)",
+          "100% correct in quiet \u2014 task understood."
+        ],
+        [
+          "PASS",
+          "Repeatability & '???' Unsure Rate",
+          "Test 98% / Retest 100% (2% diff); '???' unsure button used 0.0%."
+        ]
+      ],
+      "recommendations": [
+        "Amplification: Not indicated. Threshold sensitivity, loudness growth, and speech-in-noise clarity are all within Normal-Hearing limits.",
+        "Counseling & Follow-Up: Reassure patient; retain report as baseline for future comparison."
+      ],
+      "top_confusions": [
+        {
+          "stim": "T",
+          "resp": "D",
+          "pct": 10.0,
+          "count": 2,
+          "out_of": 20
+        }
+      ],
+      "aided_sessions": [],
+      "audiogram_hl_db": [
+        15.0,
+        15.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        10.0,
+        5.0,
+        20.0,
+        10.0
+      ],
+      "audiogram_spl_db": [
+        32.5,
+        24.5,
+        16.0,
+        20.5,
+        19.5,
+        16.5,
+        23.0,
+        20.0,
+        36.0,
+        25.5
+      ],
+      "hl_ohc_db": [
+        3.75,
+        3.75,
+        2.5,
+        3.75,
+        2.5,
+        3.5,
+        3.3040470038440484,
+        3.5,
+        13.799713060899748,
+        10.0
+      ],
+      "hl_ihc_db": [
+        11.25,
+        11.25,
+        7.5,
+        11.25,
+        7.5,
+        1.5,
+        6.695952996155952,
+        1.5,
+        6.200286939100252,
+        0.0
+      ],
+      "erb_factor": [
+        1.135,
+        1.135,
+        1.09,
+        1.135,
+        1.09,
+        1.1260000000000001,
+        1.1189456921383858,
+        1.1260000000000001,
+        1.496789670192391,
+        1.36
+      ]
+    },
+    {
+      "listener_id": "HL045",
+      "ear": "Unspecified",
+      "group": "Slight",
+      "n_trials": 200,
+      "has_measured_qcls": true,
+      "qcls_valid_monotonic": true,
+      "pta_124_db_hl": 16.7,
+      "lf_pta_db_hl": 18.8,
+      "hf_pta_db_hl": 13.8,
+      "ppta_db_hl": 27.5,
+      "practice_pc": 90.0,
+      "emp_pc_s1": 87.0,
+      "emp_pc_s2": 79.0,
+      "emp_pc_pooled": 83.0,
+      "unk_pct": 3.0,
+      "pc_nh_ref": 97.5,
+      "pc_stage1_aud": 97.7,
+      "pc_stage2_periph": 97.4,
+      "pc_stage3_full": 83.4,
+      "total_deficit_db": 7.92,
+      "total_deficit_se_db": 0.33,
+      "audibility_deficit_db": 0.0,
+      "ohc_recruitment_deficit_db": 0.22,
+      "neural_coding_deficit_db": 7.7,
+      "neural_coding_se_db": 0.33,
+      "snr_loss_severity": "Mild",
+      "measured_srt_loss_db": null,
+      "neural_eff_lf_pct": 41.0,
+      "neural_eff_hf_pct": 17.0,
+      "qcls_hf_ohc_db": 4.0,
+      "qcls_hf_ihc_db": 10.1,
+      "hf_erb_broadening_x": 1.14,
+      "hf_smearing_label": "Minimal",
+      "cu5_aud_diff_db": -19.8,
+      "dyn_range_lf_db": 98.5,
+      "dyn_range_hf_db": 118.9,
+      "loudness_growth_cu_per_db": 0.42,
+      "rem_targets": {
+        "freqs_khz": [
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ],
+        "soft_cu15_spl": [
+          51.0,
+          41.0,
+          49.0,
+          35.0
+        ],
+        "comfort_cu25_spl": [
+          84.0,
+          78.0,
+          76.0,
+          72.0
+        ],
+        "mpo_cu50_spl": [
+          121.0,
+          116.0,
+          119.0,
+          114.0
+        ]
+      },
+      "rtr_voicing_pct_nh": 72.0,
+      "rtr_manner_pct_nh": 84.0,
+      "rtr_place_pct_nh": 73.0,
+      "phenotype": "SUPRATHRESHOLD CLARITY LOSS WITH NORMAL AUDIOGRAM",
+      "phenotype_color": "#B91C1C",
+      "qc_checks": [
+        [
+          "WARN",
+          "Audiogram vs. qCLS Softest (CU 5)",
+          "CU 5 is 19.8 dB softer than audiogram \u2014 check insert foam seal, booth noise, or transducer setting."
+        ],
+        [
+          "PASS",
+          "Clear-Speech Practice (Quiet)",
+          "90% correct in quiet \u2014 task understood."
+        ],
+        [
+          "PASS",
+          "Repeatability & '???' Unsure Rate",
+          "Test 87% / Retest 79% (8% diff); '???' unsure button used 3.0%."
+        ]
+      ],
+      "recommendations": [
+        "Amplification Gain: Conventional hearing-aid gain is NOT indicated (all thresholds <= 20 dB HL; inaudibility accounts for < 1 dB of SNR loss).",
+        "Compression & MPO: Normal dynamic range supports low-ratio / near-linear WDRC to preserve consonant contrast without loudness discomfort.",
+        "Speech-in-Noise Technology & Counseling: +7.7 dB suprathreshold clarity loss will not be resolved by gain alone. Recommend directional or remote-microphone technology in noise, realistic counseling, and standard audiologic follow-up if asymmetric."
+      ],
+      "top_confusions": [
+        {
+          "stim": "D",
+          "resp": "G",
+          "pct": 25.0,
+          "count": 5,
+          "out_of": 20
+        },
+        {
+          "stim": "S",
+          "resp": "SH",
+          "pct": 20.0,
+          "count": 4,
+          "out_of": 20
+        },
+        {
+          "stim": "Z",
+          "resp": "B",
+          "pct": 10.0,
+          "count": 2,
+          "out_of": 20
+        },
+        {
+          "stim": "S",
+          "resp": "Z",
+          "pct": 10.0,
+          "count": 2,
+          "out_of": 20
+        },
+        {
+          "stim": "K",
+          "resp": "T",
+          "pct": 10.0,
+          "count": 2,
+          "out_of": 20
+        },
+        {
+          "stim": "K",
+          "resp": "SH",
+          "pct": 10.0,
+          "count": 2,
+          "out_of": 20
+        }
+      ],
+      "aided_sessions": [],
+      "audiogram_hl_db": [
+        20.0,
+        20.0,
+        20.0,
+        15.0,
+        15.0,
+        15.0,
+        20.0,
+        20.0,
+        10.0,
+        5.0
+      ],
+      "audiogram_spl_db": [
+        37.5,
+        29.5,
+        26.0,
+        20.5,
+        24.5,
+        26.5,
+        33.0,
+        35.0,
+        26.0,
+        20.5
+      ],
+      "hl_ohc_db": [
+        5.0,
+        5.0,
+        5.0,
+        3.75,
+        3.75,
+        3.75,
+        5.0,
+        5.0,
+        2.5,
+        3.5
+      ],
+      "hl_ihc_db": [
+        15.0,
+        15.0,
+        15.0,
+        11.25,
+        11.25,
+        11.25,
+        15.0,
+        15.0,
+        7.5,
+        1.5
+      ],
+      "erb_factor": [
+        1.18,
+        1.18,
+        1.18,
+        1.135,
+        1.135,
+        1.135,
+        1.18,
+        1.18,
+        1.09,
+        1.1260000000000001
+      ]
+    },
+    {
+      "listener_id": "HL011",
+      "ear": "Unspecified",
+      "group": "Slight",
+      "n_trials": 200,
+      "has_measured_qcls": true,
+      "qcls_valid_monotonic": true,
+      "pta_124_db_hl": 25.0,
+      "lf_pta_db_hl": 12.5,
+      "hf_pta_db_hl": 30.0,
+      "ppta_db_hl": 31.7,
+      "practice_pc": 95.0,
+      "emp_pc_s1": 82.0,
+      "emp_pc_s2": 82.0,
+      "emp_pc_pooled": 82.0,
+      "unk_pct": 0.0,
+      "pc_nh_ref": 97.5,
+      "pc_stage1_aud": 97.0,
+      "pc_stage2_periph": 96.0,
+      "pc_stage3_full": 83.4,
+      "total_deficit_db": 7.91,
+      "total_deficit_se_db": 0.47,
+      "audibility_deficit_db": 1.12,
+      "ohc_recruitment_deficit_db": 1.16,
+      "neural_coding_deficit_db": 5.63,
+      "neural_coding_se_db": 0.47,
+      "snr_loss_severity": "Mild",
+      "measured_srt_loss_db": null,
+      "neural_eff_lf_pct": 35.0,
+      "neural_eff_hf_pct": 51.0,
+      "qcls_hf_ohc_db": 12.8,
+      "qcls_hf_ihc_db": 17.2,
+      "hf_erb_broadening_x": 1.46,
+      "hf_smearing_label": "Mild",
+      "cu5_aud_diff_db": -0.8,
+      "dyn_range_lf_db": 82.3,
+      "dyn_range_hf_db": 75.9,
+      "loudness_growth_cu_per_db": 0.56,
+      "rem_targets": {
+        "freqs_khz": [
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ],
+        "soft_cu15_spl": [
+          47.0,
+          38.0,
+          51.0,
+          51.0
+        ],
+        "comfort_cu25_spl": [
+          70.0,
+          63.0,
+          66.0,
+          73.0
+        ],
+        "mpo_cu50_spl": [
+          116.0,
+          110.0,
+          115.0,
+          116.0
+        ]
+      },
+      "rtr_voicing_pct_nh": 90.0,
+      "rtr_manner_pct_nh": 73.0,
+      "rtr_place_pct_nh": 85.0,
+      "phenotype": "COCHLEAR RECRUITMENT + MARKED SUPRATHRESHOLD CLARITY LOSS",
+      "phenotype_color": "#B91C1C",
+      "qc_checks": [
+        [
+          "PASS",
+          "Audiogram vs. qCLS Softest (CU 5)",
+          "Agrees within -0.8 dB across frequencies."
+        ],
+        [
+          "PASS",
+          "Clear-Speech Practice (Quiet)",
+          "95% correct in quiet \u2014 task understood."
+        ],
+        [
+          "PASS",
+          "Repeatability & '???' Unsure Rate",
+          "Test 82% / Retest 82% (0% diff); '???' unsure button used 0.0%."
+        ]
+      ],
+      "recommendations": [
+        "Amplification Gain: Prescribe frequency-specific gain (+1.1 dB SNR loss recoverable from audibility), prioritizing 2-8 kHz consonant cues (HF-PTA = 30 dB HL).",
+        "Compression & MPO (UCL): Steep HF loudness growth (HF dynamic range = 76 dB; mild spectral smearing). Use moderate WDRC ratios, cap HF MPO <= 113 dB SPL (CU 50), and avoid excess low-frequency gain (<1 kHz) to limit upward spread of masking.",
+        "Speech-in-Noise Technology & Counseling: +5.6 dB suprathreshold clarity loss will not be resolved by gain alone. Recommend directional or remote-microphone technology in noise, realistic counseling, and standard audiologic follow-up if asymmetric."
+      ],
+      "top_confusions": [
+        {
+          "stim": "D",
+          "resp": "G",
+          "pct": 75.0,
+          "count": 15,
+          "out_of": 20
+        },
+        {
+          "stim": "S",
+          "resp": "T",
+          "pct": 60.0,
+          "count": 12,
+          "out_of": 20
+        },
+        {
+          "stim": "Z",
+          "resp": "S",
+          "pct": 20.0,
+          "count": 4,
+          "out_of": 20
+        },
+        {
+          "stim": "D",
+          "resp": "Z",
+          "pct": 10.0,
+          "count": 2,
+          "out_of": 20
+        },
+        {
+          "stim": "B",
+          "resp": "V",
+          "pct": 10.0,
+          "count": 2,
+          "out_of": 20
+        }
+      ],
+      "aided_sessions": [],
+      "audiogram_hl_db": [
+        15.0,
+        15.0,
+        10.0,
+        10.0,
+        20.0,
+        30.0,
+        25.0,
+        35.0,
+        30.0,
+        30.0
+      ],
+      "audiogram_spl_db": [
+        32.5,
+        24.5,
+        16.0,
+        15.5,
+        29.5,
+        41.5,
+        38.0,
+        50.0,
+        46.0,
+        45.5
+      ],
+      "hl_ohc_db": [
+        3.75,
+        6.822713993314835,
+        10.0,
+        7.666253164741875,
+        8.220627901868578,
+        7.5,
+        12.799634135238396,
+        8.75,
+        15.967501168540196,
+        19.201132739261652
+      ],
+      "hl_ihc_db": [
+        11.25,
+        8.177286006685165,
+        0.0,
+        2.3337468352581254,
+        11.779372098131422,
+        22.5,
+        12.200365864761604,
+        26.25,
+        14.032498831459804,
+        10.798867260738348
+      ],
+      "erb_factor": [
+        1.135,
+        1.2456177037593341,
+        1.36,
+        1.2759851139307075,
+        1.2959426044672688,
+        1.27,
+        1.4607868288685824,
+        1.315,
+        1.574830042067447,
+        1.6912407786134196
+      ]
+    },
+    {
+      "listener_id": "HL068",
+      "ear": "Unspecified",
+      "group": "Moderate",
+      "n_trials": 200,
+      "has_measured_qcls": true,
+      "qcls_valid_monotonic": true,
+      "pta_124_db_hl": 43.3,
+      "lf_pta_db_hl": 38.8,
+      "hf_pta_db_hl": 46.2,
+      "ppta_db_hl": 46.2,
+      "practice_pc": 75.0,
+      "emp_pc_s1": 65.0,
+      "emp_pc_s2": 63.0,
+      "emp_pc_pooled": 64.0,
+      "unk_pct": 5.0,
+      "pc_nh_ref": 97.5,
+      "pc_stage1_aud": 76.9,
+      "pc_stage2_periph": 68.3,
+      "pc_stage3_full": 62.8,
+      "total_deficit_db": 11.98,
+      "total_deficit_se_db": 0.43,
+      "audibility_deficit_db": 9.39,
+      "ohc_recruitment_deficit_db": 1.61,
+      "neural_coding_deficit_db": 0.98,
+      "neural_coding_se_db": 0.43,
+      "snr_loss_severity": "Moderate",
+      "measured_srt_loss_db": null,
+      "neural_eff_lf_pct": 50.0,
+      "neural_eff_hf_pct": 100.0,
+      "qcls_hf_ohc_db": 37.6,
+      "qcls_hf_ihc_db": 8.4,
+      "hf_erb_broadening_x": 2.35,
+      "hf_smearing_label": "Severe",
+      "cu5_aud_diff_db": 0.1,
+      "dyn_range_lf_db": 70.6,
+      "dyn_range_hf_db": 46.4,
+      "loudness_growth_cu_per_db": 0.79,
+      "rem_targets": {
+        "freqs_khz": [
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ],
+        "soft_cu15_spl": [
+          69.0,
+          70.0,
+          78.0,
+          87.0
+        ],
+        "comfort_cu25_spl": [
+          84.0,
+          83.0,
+          89.0,
+          98.0
+        ],
+        "mpo_cu50_spl": [
+          113.0,
+          112.0,
+          114.0,
+          116.0
+        ]
+      },
+      "rtr_voicing_pct_nh": 66.0,
+      "rtr_manner_pct_nh": 53.0,
+      "rtr_place_pct_nh": 48.0,
+      "phenotype": "REDUCED AUDIBILITY & COCHLEAR RECRUITMENT (PRESERVED CLARITY)",
+      "phenotype_color": "#EA580C",
+      "qc_checks": [
+        [
+          "PASS",
+          "Audiogram vs. qCLS Softest (CU 5)",
+          "Agrees within +0.1 dB across frequencies."
+        ],
+        [
+          "WARN",
+          "Clear-Speech Practice (Quiet)",
+          "75% at 60 dB SPL (consistent with high-frequency inaudibility before amplification)."
+        ],
+        [
+          "PASS",
+          "Repeatability & '???' Unsure Rate",
+          "Test 65% / Retest 63% (2% diff); '???' unsure button used 5.0%."
+        ]
+      ],
+      "recommendations": [
+        "Amplification Gain: Prescribe frequency-specific gain (+9.4 dB SNR loss recoverable from audibility), prioritizing 2-8 kHz consonant cues (HF-PTA = 46 dB HL).",
+        "Compression & MPO (UCL): Steep HF loudness growth (HF dynamic range = 46 dB; severe spectral smearing). Use moderate WDRC ratios, cap HF MPO <= 115 dB SPL (CU 50), and avoid excess low-frequency gain (<1 kHz) to limit upward spread of masking.",
+        "AIDED VERIFICATION PASS: Amplification improved qVCV from 64% to 88% (Lab Aid), confirming preserved speech clarity once audibility is restored."
+      ],
+      "top_confusions": [
+        {
+          "stim": "G",
+          "resp": "Z",
+          "pct": 55.0,
+          "count": 11,
+          "out_of": 20
+        },
+        {
+          "stim": "D",
+          "resp": "B",
+          "pct": 55.0,
+          "count": 11,
+          "out_of": 20
+        },
+        {
+          "stim": "V",
+          "resp": "Z",
+          "pct": 35.0,
+          "count": 7,
+          "out_of": 20
+        },
+        {
+          "stim": "V",
+          "resp": "B",
+          "pct": 35.0,
+          "count": 7,
+          "out_of": 20
+        },
+        {
+          "stim": "T",
+          "resp": "Z",
+          "pct": 30.0,
+          "count": 6,
+          "out_of": 20
+        },
+        {
+          "stim": "K",
+          "resp": "T",
+          "pct": 30.0,
+          "count": 6,
+          "out_of": 20
+        }
+      ],
+      "aided_sessions": [
+        {
+          "aid_id": "HA068",
+          "aid_type": "Lab Aid",
+          "aided_pc": 88.0,
+          "delta_pc_vs_unaided": 24.0,
+          "aided_eq_deficit_db": 6.55,
+          "snr_benefit_db": 5.43
+        },
+        {
+          "aid_id": "HP068",
+          "aid_type": "Personal Aid",
+          "aided_pc": 85.0,
+          "delta_pc_vs_unaided": 21.0,
+          "aided_eq_deficit_db": 7.48,
+          "snr_benefit_db": 4.5
+        }
+      ],
+      "audiogram_hl_db": [
+        50.0,
+        40.0,
+        35.0,
+        30.0,
+        30.0,
+        45.0,
+        30.0,
+        55.0,
+        50.0,
+        50.0
+      ],
+      "audiogram_spl_db": [
+        67.5,
+        49.5,
+        41.0,
+        35.5,
+        39.5,
+        56.5,
+        43.0,
+        70.0,
+        66.0,
+        65.5
+      ],
+      "hl_ohc_db": [
+        20.39079922836081,
+        18.919105109322455,
+        22.848498933237085,
+        24.088209201484865,
+        26.6342330046697,
+        26.85350700540701,
+        30.0,
+        40.91558152331441,
+        43.029745345909284,
+        47.22567723256363
+      ],
+      "hl_ihc_db": [
+        29.60920077163919,
+        21.080894890677545,
+        12.151501066762915,
+        5.911790798515135,
+        3.3657669953303007,
+        18.14649299459299,
+        0.0,
+        14.084418476685592,
+        6.970254654090716,
+        2.7743227674363666
+      ],
+      "erb_factor": [
+        1.734068772220989,
+        1.6810877839356082,
+        1.8225459615965351,
+        1.867175531253455,
+        1.9588323881681093,
+        1.9667262521946525,
+        2.08,
+        2.4729609348393184,
+        2.5490708324527342,
+        2.7001243803722907
+      ]
+    },
+    {
+      "listener_id": "HL030",
+      "ear": "Unspecified",
+      "group": "Moderate",
+      "n_trials": 200,
+      "has_measured_qcls": true,
+      "qcls_valid_monotonic": true,
+      "pta_124_db_hl": 48.3,
+      "lf_pta_db_hl": 15.0,
+      "hf_pta_db_hl": 73.8,
+      "ppta_db_hl": 53.5,
+      "practice_pc": 70.0,
+      "emp_pc_s1": 40.0,
+      "emp_pc_s2": 44.0,
+      "emp_pc_pooled": 42.0,
+      "unk_pct": 1.0,
+      "pc_nh_ref": 97.5,
+      "pc_stage1_aud": 75.8,
+      "pc_stage2_periph": 73.6,
+      "pc_stage3_full": 46.9,
+      "total_deficit_db": 15.24,
+      "total_deficit_se_db": 0.43,
+      "audibility_deficit_db": 9.61,
+      "ohc_recruitment_deficit_db": 0.42,
+      "neural_coding_deficit_db": 5.21,
+      "neural_coding_se_db": 0.43,
+      "snr_loss_severity": "Severe",
+      "measured_srt_loss_db": null,
+      "neural_eff_lf_pct": 24.0,
+      "neural_eff_hf_pct": 25.0,
+      "qcls_hf_ohc_db": 43.9,
+      "qcls_hf_ihc_db": 27.1,
+      "hf_erb_broadening_x": 2.58,
+      "hf_smearing_label": "Severe",
+      "cu5_aud_diff_db": -11.6,
+      "dyn_range_lf_db": 91.6,
+      "dyn_range_hf_db": 34.1,
+      "loudness_growth_cu_per_db": 0.93,
+      "rem_targets": {
+        "freqs_khz": [
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ],
+        "soft_cu15_spl": [
+          38.0,
+          39.0,
+          61.0,
+          86.0
+        ],
+        "comfort_cu25_spl": [
+          59.0,
+          56.0,
+          71.0,
+          92.0
+        ],
+        "mpo_cu50_spl": [
+          108.0,
+          105.0,
+          111.0,
+          119.0
+        ]
+      },
+      "rtr_voicing_pct_nh": 31.0,
+      "rtr_manner_pct_nh": 45.0,
+      "rtr_place_pct_nh": 21.0,
+      "phenotype": "COCHLEAR RECRUITMENT + MARKED SUPRATHRESHOLD CLARITY LOSS",
+      "phenotype_color": "#B91C1C",
+      "qc_checks": [
+        [
+          "WARN",
+          "Audiogram vs. qCLS Softest (CU 5)",
+          "CU 5 is 11.6 dB softer than audiogram \u2014 check insert foam seal, booth noise, or transducer setting."
+        ],
+        [
+          "ALERT",
+          "Clear-Speech Practice (Quiet)",
+          "70% despite audible speech \u2014 reduced quiet clarity; verify standard word recognition."
+        ],
+        [
+          "PASS",
+          "Repeatability & '???' Unsure Rate",
+          "Test 40% / Retest 44% (4% diff); '???' unsure button used 1.0%."
+        ]
+      ],
+      "recommendations": [
+        "Amplification Gain: Prescribe frequency-specific gain (+9.6 dB SNR loss recoverable from audibility), prioritizing 2-8 kHz consonant cues (HF-PTA = 74 dB HL).",
+        "Compression & MPO (UCL): Steep HF loudness growth (HF dynamic range = 34 dB; severe spectral smearing). Use moderate WDRC ratios, cap HF MPO <= 116 dB SPL (CU 50), and avoid excess low-frequency gain (<1 kHz) to limit upward spread of masking.",
+        "AIDED CLARITY CEILING: Aided score plateaued at 49% (vs. 42% unaided) due to +5.2 dB suprathreshold clarity loss and 34 dB HF dynamic range \u2014 recommend directional mics or a Remote Microphone / DM system."
+      ],
+      "top_confusions": [
+        {
+          "stim": "D",
+          "resp": "B",
+          "pct": 65.0,
+          "count": 13,
+          "out_of": 20
+        },
+        {
+          "stim": "K",
+          "resp": "S",
+          "pct": 50.0,
+          "count": 10,
+          "out_of": 20
+        },
+        {
+          "stim": "T",
+          "resp": "Z",
+          "pct": 40.0,
+          "count": 8,
+          "out_of": 20
+        },
+        {
+          "stim": "T",
+          "resp": "S",
+          "pct": 40.0,
+          "count": 8,
+          "out_of": 20
+        },
+        {
+          "stim": "SH",
+          "resp": "S",
+          "pct": 40.0,
+          "count": 8,
+          "out_of": 20
+        },
+        {
+          "stim": "D",
+          "resp": "V",
+          "pct": 35.0,
+          "count": 7,
+          "out_of": 20
+        }
+      ],
+      "aided_sessions": [
+        {
+          "aid_id": "HA030",
+          "aid_type": "Lab Aid",
+          "aided_pc": 46.0,
+          "delta_pc_vs_unaided": 4.0,
+          "aided_eq_deficit_db": 15.44,
+          "snr_benefit_db": -0.2
+        },
+        {
+          "aid_id": "HP030",
+          "aid_type": "Personal Aid",
+          "aided_pc": 49.0,
+          "delta_pc_vs_unaided": 7.0,
+          "aided_eq_deficit_db": 14.77,
+          "snr_benefit_db": 0.47
+        }
+      ],
+      "audiogram_hl_db": [
+        20.0,
+        10.0,
+        15.0,
+        15.0,
+        35.0,
+        60.0,
+        70.0,
+        70.0,
+        75.0,
+        80.0
+      ],
+      "audiogram_spl_db": [
+        37.5,
+        19.5,
+        21.0,
+        20.5,
+        44.5,
+        71.5,
+        83.0,
+        85.0,
+        91.0,
+        95.5
+      ],
+      "hl_ohc_db": [
+        5.0,
+        2.5,
+        3.75,
+        3.75,
+        12.630540132657536,
+        21.166917828989572,
+        39.425990830163656,
+        49.109894534841054,
+        54.59593688128404,
+        55.0
+      ],
+      "hl_ihc_db": [
+        15.0,
+        7.5,
+        11.25,
+        11.25,
+        22.369459867342464,
+        38.83308217101043,
+        30.574009169836344,
+        20.890105465158946,
+        20.40406311871596,
+        25.0
+      ],
+      "erb_factor": [
+        1.18,
+        1.09,
+        1.135,
+        1.135,
+        1.4546994447756714,
+        1.7620090418436245,
+        2.419335669885892,
+        2.767956203254278,
+        2.965453727726225,
+        2.9800000000000004
+      ]
+    },
+    {
+      "listener_id": "HL048",
+      "ear": "Unspecified",
+      "group": "Mild",
+      "n_trials": 200,
+      "has_measured_qcls": true,
+      "qcls_valid_monotonic": true,
+      "pta_124_db_hl": 28.3,
+      "lf_pta_db_hl": 25.0,
+      "hf_pta_db_hl": 51.2,
+      "ppta_db_hl": 33.3,
+      "practice_pc": 100.0,
+      "emp_pc_s1": 79.0,
+      "emp_pc_s2": 78.0,
+      "emp_pc_pooled": 78.5,
+      "unk_pct": 0.0,
+      "pc_nh_ref": 97.5,
+      "pc_stage1_aud": 85.6,
+      "pc_stage2_periph": 83.4,
+      "pc_stage3_full": 72.5,
+      "total_deficit_db": 10.24,
+      "total_deficit_se_db": 0.45,
+      "audibility_deficit_db": 7.3,
+      "ohc_recruitment_deficit_db": 0.62,
+      "neural_coding_deficit_db": 2.33,
+      "neural_coding_se_db": 0.45,
+      "snr_loss_severity": "Moderate",
+      "measured_srt_loss_db": null,
+      "neural_eff_lf_pct": 43.0,
+      "neural_eff_hf_pct": 75.0,
+      "qcls_hf_ohc_db": 17.5,
+      "qcls_hf_ihc_db": 27.5,
+      "hf_erb_broadening_x": 1.63,
+      "hf_smearing_label": "Moderate",
+      "cu5_aud_diff_db": -14.9,
+      "dyn_range_lf_db": 92.3,
+      "dyn_range_hf_db": 71.5,
+      "loudness_growth_cu_per_db": 0.55,
+      "rem_targets": {
+        "freqs_khz": [
+          0.5,
+          1.0,
+          2.0,
+          4.0
+        ],
+        "soft_cu15_spl": [
+          63.0,
+          59.0,
+          63.0,
+          76.0
+        ],
+        "comfort_cu25_spl": [
+          88.0,
+          84.0,
+          85.0,
+          96.0
+        ],
+        "mpo_cu50_spl": [
+          115.0,
+          115.0,
+          114.0,
+          118.0
+        ]
+      },
+      "rtr_voicing_pct_nh": 76.0,
+      "rtr_manner_pct_nh": 76.0,
+      "rtr_place_pct_nh": 62.0,
+      "phenotype": "REDUCED AUDIBILITY & COCHLEAR RECRUITMENT (PRESERVED CLARITY)",
+      "phenotype_color": "#EA580C",
+      "qc_checks": [
+        [
+          "WARN",
+          "Audiogram vs. qCLS Softest (CU 5)",
+          "CU 5 is 14.9 dB softer than audiogram \u2014 check insert foam seal, booth noise, or transducer setting."
+        ],
+        [
+          "PASS",
+          "Clear-Speech Practice (Quiet)",
+          "100% correct in quiet \u2014 task understood."
+        ],
+        [
+          "PASS",
+          "Repeatability & '???' Unsure Rate",
+          "Test 79% / Retest 78% (1% diff); '???' unsure button used 0.0%."
+        ]
+      ],
+      "recommendations": [
+        "Amplification Gain: Prescribe frequency-specific gain (+7.3 dB SNR loss recoverable from audibility), prioritizing 2-8 kHz consonant cues (HF-PTA = 51 dB HL).",
+        "Compression & MPO (UCL): Steep HF loudness growth (HF dynamic range = 72 dB; moderate spectral smearing). Use moderate WDRC ratios, cap HF MPO <= 119 dB SPL (CU 50), and avoid excess low-frequency gain (<1 kHz) to limit upward spread of masking.",
+        "AIDED ROLLOVER ALERT: Score dropped from 78% unaided to 68% (Lab Aid). Reduce low/mid-band gain, slow WDRC release times, and verify real-ear output."
+      ],
+      "top_confusions": [
+        {
+          "stim": "V",
+          "resp": "Z",
+          "pct": 50.0,
+          "count": 10,
+          "out_of": 20
+        },
+        {
+          "stim": "D",
+          "resp": "G",
+          "pct": 45.0,
+          "count": 9,
+          "out_of": 20
+        },
+        {
+          "stim": "T",
+          "resp": "Z",
+          "pct": 35.0,
+          "count": 7,
+          "out_of": 20
+        },
+        {
+          "stim": "K",
+          "resp": "T",
+          "pct": 30.0,
+          "count": 6,
+          "out_of": 20
+        },
+        {
+          "stim": "S",
+          "resp": "T",
+          "pct": 20.0,
+          "count": 4,
+          "out_of": 20
+        },
+        {
+          "stim": "T",
+          "resp": "G",
+          "pct": 15.0,
+          "count": 3,
+          "out_of": 20
+        }
+      ],
+      "aided_sessions": [
+        {
+          "aid_id": "HA048",
+          "aid_type": "Lab Aid",
+          "aided_pc": 68.0,
+          "delta_pc_vs_unaided": -10.5,
+          "aided_eq_deficit_db": 11.05,
+          "snr_benefit_db": -0.81
+        },
+        {
+          "aid_id": "HP048",
+          "aid_type": "Personal Aid",
+          "aided_pc": 70.0,
+          "delta_pc_vs_unaided": -8.5,
+          "aided_eq_deficit_db": 10.69,
+          "snr_benefit_db": -0.45
+        }
+      ],
+      "audiogram_hl_db": [
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        25.0,
+        20.0,
+        30.0,
+        40.0,
+        65.0,
+        70.0
+      ],
+      "audiogram_spl_db": [
+        42.5,
+        34.5,
+        31.0,
+        30.5,
+        34.5,
+        31.5,
+        43.0,
+        55.0,
+        81.0,
+        85.5
+      ],
+      "hl_ohc_db": [
+        7.11912567819045,
+        6.25,
+        6.25,
+        6.25,
+        6.25,
+        5.0,
+        8.464633226651099,
+        19.305631330510415,
+        24.755925163784504,
+        29.733443561195784
+      ],
+      "hl_ihc_db": [
+        17.88087432180955,
+        18.75,
+        18.75,
+        18.75,
+        18.75,
+        15.0,
+        21.5353667733489,
+        20.694368669489585,
+        40.244074836215496,
+        40.266556438804216
+      ],
+      "erb_factor": [
+        1.256288524414856,
+        1.225,
+        1.225,
+        1.225,
+        1.225,
+        1.18,
+        1.3047267961594395,
+        1.695002727898375,
+        1.8912133058962421,
+        2.070403968203048
+      ]
+    }
+  ]
+}

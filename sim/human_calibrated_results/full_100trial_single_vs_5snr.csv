@@ -1,0 +1,5 @@
+design,description,aroc_nh_vs_all_hl,delta_vs_opt_single_all_hl,delta_vs_opt_single_all_hl_ci95,aroc_nh_vs_slight_hl,delta_vs_opt_single_slight_hl,delta_vs_opt_single_slight_hl_ci95,aroc_nh_vs_mild_mod_hl,snr_aware_llr_aroc_nh_vs_all_hl,snr_aware_llr_aroc_nh_vs_slight_hl
+current_qVCV_single_snr,Current Published qVCV Single SNRs (5x each),0.8873,-0.0084,"[-0.0239, -0.0042]",0.7514,-0.0171,"[-0.0394, -0.0082]",0.96,,
+optimal_single_snr,Best Single SNR per VCV (5x each),0.8958,0.0,"[+0.0000, +0.0000]",0.7685,0.0,"[+0.0000, +0.0000]",0.9638,0.8907,0.7346
+optimal_5snr_min1db,Best 5-SNR Set per VCV (step >= 1 dB),0.9003,0.0046,"[+0.0014, +0.0226]",0.7767,0.0082,"[+0.0046, +0.0398]",0.9665,0.8977,0.7342
+optimal_5snr_min2db,Best Spread 5-SNR Set per VCV (step >= 2 dB),0.8998,0.004,"[+0.0012, +0.0240]",0.776,0.0075,"[+0.0045, +0.0401]",0.966,0.8957,0.7272

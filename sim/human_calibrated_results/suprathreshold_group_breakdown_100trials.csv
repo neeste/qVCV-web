@@ -1,0 +1,9 @@
+arm,description,rmse_all98_db,rmse_nh_slight55_db,rmse_normal_db,rmse_slight_db,rmse_mild_db,rmse_moderate_db,rmse_p90_worst_db,retest_mad_db,r2_global_D,per_cons_D_rmse_db,mean_errors_normal_100,mean_errors_all98_100,n_eq_all98_global_D,speedup_all98_global_D,n_eq_nh_slight_D,speedup_nh_slight_D,n_eq_per_cons_D
+single_current,Current qVCV 1-SNR (5x @ Ref),1.316,1.347,1.42,1.239,0.957,1.646,1.611,1.044,0.8107,2.665,3.9,20.0,100.0,1.0,100.0,1.0,100.0
+single_bayes_opt,Bayes-Opt 1-SNR (5x),1.334,0.854,0.785,0.94,1.112,2.452,2.111,0.813,0.8488,2.776,24.4,42.8,,,25.6,3.91,
+set5_around_ref,5-SNR Centered on Ref (Ref ±8 dB),1.192,1.069,1.127,0.983,0.959,1.756,1.407,1.088,0.8351,2.653,7.9,23.6,68.7,1.46,49.5,2.02,98.1
+set5_balanced_span,Balanced 5-SNR Set (Ref -12..+8 dB),1.211,0.995,1.008,0.977,1.035,1.901,1.46,1.066,0.8362,2.727,14.6,29.7,72.1,1.39,42.1,2.38,
+adaptive_1db_vcv,"Adaptive SNR (Uncoupled Per-VCV, Blind)",1.02,0.732,0.715,0.755,0.907,1.734,1.511,0.837,0.8876,2.437,36.3,45.4,47.7,2.1,24.0,4.17,75.4
+adaptive_5snr_hier,"Adaptive SNR (5-SNR Bank, Hier. Blind)",0.982,0.752,0.726,0.787,0.864,1.609,1.171,0.851,0.8943,2.417,37.4,43.2,43.4,2.3,28.1,3.56,72.8
+adaptive_1db_hier,"Adaptive SNR (1-dB Bank, Hier. Blind)",0.971,0.72,0.706,0.74,0.852,1.626,1.285,0.836,0.8971,2.394,41.2,45.8,42.3,2.36,24.7,4.05,71.2
+adaptive_joint_audio,Adaptive Cons+SNR (Audiogram-Informed),0.996,0.714,0.69,0.745,0.843,1.727,1.426,0.812,0.8915,2.429,40.0,46.8,39.6,2.53,26.8,3.73,75.9

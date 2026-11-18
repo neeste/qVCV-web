@@ -1,0 +1,59 @@
+{
+  "n_listeners": 98,
+  "repeatability_100_trials": {
+    "human_pc_r": 0.9721,
+    "sim_pc_r": 0.959,
+    "human_pc_mad_pct": 3.61,
+    "sim_pc_mad_pct": 4.27,
+    "human_ppta_r": 0.9628,
+    "sim_ppta_r": 0.9615,
+    "human_ppta_mad_db": 2.52,
+    "sim_ppta_mad_db": 2.68
+  },
+  "loocv_hellinger_aroc_100_trials": {
+    "human_nh_vs_all_hl": 0.8858,
+    "sim_nh_vs_all_hl": 0.8848,
+    "human_nh_vs_slight_hl": 0.7476,
+    "sim_nh_vs_slight_hl": 0.7512,
+    "human_nh_vs_mild_mod_hl": 0.9597,
+    "sim_nh_vs_mild_mod_hl": 0.9562
+  },
+  "group_means_test_and_practice": {
+    "Normal": {
+      "n": 32,
+      "human_test_pc_mean": 96.91,
+      "sim_test_pc_mean": 96.15,
+      "human_test_pc_sd": 6.13,
+      "sim_test_pc_sd": 4.3,
+      "human_practice_pc_mean": 97.34,
+      "sim_practice_pc_mean": 97.61
+    },
+    "Slight": {
+      "n": 23,
+      "human_test_pc_mean": 86.93,
+      "sim_test_pc_mean": 87.98,
+      "human_test_pc_sd": 10.89,
+      "sim_test_pc_sd": 8.68,
+      "human_practice_pc_mean": 94.13,
+      "sim_practice_pc_mean": 95.17
+    },
+    "Mild": {
+      "n": 26,
+      "human_test_pc_mean": 76.94,
+      "sim_test_pc_mean": 76.61,
+      "human_test_pc_sd": 12.25,
+      "sim_test_pc_sd": 11.89,
+      "human_practice_pc_mean": 86.35,
+      "sim_practice_pc_mean": 84.26
+    },
+    "Moderate": {
+      "n": 17,
+      "human_test_pc_mean": 45.35,
+      "sim_test_pc_mean": 44.71,
+      "human_test_pc_sd": 15.67,
+      "sim_test_pc_sd": 13.4,
+      "human_practice_pc_mean": 51.47,
+      "sim_practice_pc_mean": 52.47
+    }
+  }
+}

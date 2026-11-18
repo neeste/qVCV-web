@@ -1,0 +1,167 @@
+{
+  "elapsed_sec": 67.66,
+  "n_unaided_listeners": 98,
+  "n_paired_qcls_listeners": 95,
+  "n_aided_sessions_characterized": 67,
+  "off_diagonal_90cell_correlation_r": {
+    "previous_symmetric_feature_model": 0.6069,
+    "biophysical_asymmetric_model": 0.9886
+  },
+  "directional_confusion_pairs_human_vs_biophys_vs_symmetric": {
+    "V_vs_Z": {
+      "human": [
+        206.0,
+        7.0
+      ],
+      "biophysical": [
+        138.1,
+        12.0
+      ],
+      "symmetric_feature": [
+        91.4,
+        134.0
+      ]
+    },
+    "K_vs_T": {
+      "human": [
+        297.0,
+        64.0
+      ],
+      "biophysical": [
+        267.8,
+        65.4
+      ],
+      "symmetric_feature": [
+        156.7,
+        149.5
+      ]
+    },
+    "S_vs_T": {
+      "human": [
+        297.0,
+        86.0
+      ],
+      "biophysical": [
+        290.0,
+        88.6
+      ],
+      "symmetric_feature": [
+        97.0,
+        93.5
+      ]
+    },
+    "D_vs_G": {
+      "human": [
+        308.0,
+        118.0
+      ],
+      "biophysical": [
+        271.6,
+        102.4
+      ],
+      "symmetric_feature": [
+        82.5,
+        85.5
+      ]
+    },
+    "B_vs_D": {
+      "human": [
+        47.0,
+        110.0
+      ],
+      "biophysical": [
+        52.2,
+        94.8
+      ],
+      "symmetric_feature": [
+        84.7,
+        82.5
+      ]
+    }
+  },
+  "simulated_vs_human_100trial_benchmarks": {
+    "aroc_nh_vs_all_hl": {
+      "human": 0.8858,
+      "biophysical_sim": 0.8924
+    },
+    "aroc_nh_vs_slight": {
+      "human": 0.7476,
+      "biophysical_sim": 0.7624
+    },
+    "aroc_nh_vs_mild_mod": {
+      "human": 0.9597,
+      "biophysical_sim": 0.9619
+    },
+    "ppta_test_retest_r": {
+      "human": 0.9628,
+      "biophysical_sim": 0.9732
+    },
+    "ppta_test_retest_mad_db": {
+      "human": 2.52,
+      "biophysical_sim": 2.19
+    }
+  },
+  "out_of_sample_lolo_s1_to_s2_characterization": {
+    "s1_to_s2_brier_raw": 23.084,
+    "s1_to_s2_brier_sym_eb": 22.476,
+    "s1_to_s2_brier_biophys_eb": 22.279,
+    "s1_to_s2_nll_raw": 57.36,
+    "s1_to_s2_nll_sym_eb": 53.52,
+    "s1_to_s2_nll_biophys_eb": 51.78,
+    "retest_s1_vs_s2_tvd_raw": 0.1208,
+    "retest_s1_vs_s2_tvd_sym_eb": 0.1111,
+    "retest_s1_vs_s2_tvd_biophys_eb": 0.1045,
+    "human_s1_vs_s2_biophys_deficit_r": 0.9437,
+    "human_s1_vs_s2_biophys_deficit_mad_db": 1.614
+  },
+  "group_mean_deficit_decomposition_db_snr": {
+    "Normal": {
+      "n": 32,
+      "total_behavioral_db": 1.07,
+      "threshold_audibility_db": 0.14,
+      "qcls_ohc_broadening_usom_db": 0.6,
+      "neural_suprathreshold_db": 0.33
+    },
+    "Slight": {
+      "n": 23,
+      "total_behavioral_db": 5.35,
+      "threshold_audibility_db": 2.47,
+      "qcls_ohc_broadening_usom_db": 1.13,
+      "neural_suprathreshold_db": 1.75
+    },
+    "Mild": {
+      "n": 26,
+      "total_behavioral_db": 8.55,
+      "threshold_audibility_db": 6.12,
+      "qcls_ohc_broadening_usom_db": 1.33,
+      "neural_suprathreshold_db": 1.1
+    },
+    "Moderate": {
+      "n": 17,
+      "total_behavioral_db": 26.59,
+      "threshold_audibility_db": 22.14,
+      "qcls_ohc_broadening_usom_db": 1.01,
+      "neural_suprathreshold_db": 3.43
+    }
+  },
+  "aided_benefit_summary_db_snr": {
+    "Personal_Aid": {
+      "n_sessions": 27,
+      "mean_unaided_total_db": 19.07,
+      "mean_aided_total_db": 10.76,
+      "mean_net_benefit_db": 8.31,
+      "mean_remaining_audibility_db": 5.62,
+      "mean_remaining_ohc_usom_db": 1.9,
+      "mean_aided_distortion_db": 3.24
+    },
+    "Lab_Aid": {
+      "n_sessions": 40,
+      "mean_unaided_total_db": 16.49,
+      "mean_aided_total_db": 11.14,
+      "mean_net_benefit_db": 5.35,
+      "mean_remaining_audibility_db": 5.39,
+      "mean_remaining_ohc_usom_db": 1.84,
+      "mean_aided_distortion_db": 3.91
+    }
+  }
+}

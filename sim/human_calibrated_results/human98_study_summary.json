@@ -1,0 +1,279 @@
+{
+  "elapsed_sec": 387.35,
+  "calibration_validation": {
+    "n_listeners": 98,
+    "repeatability_100_trials": {
+      "human_pc_r": 0.9721,
+      "sim_pc_r": 0.9688,
+      "human_pc_mad_pct": 3.61,
+      "sim_pc_mad_pct": 3.6,
+      "human_ppta_r": 0.9628,
+      "sim_ppta_r": 0.9659,
+      "human_ppta_mad_db": 2.52,
+      "sim_ppta_mad_db": 2.36
+    },
+    "loocv_hellinger_aroc_100_trials": {
+      "human_nh_vs_all_hl": 0.8812,
+      "sim_nh_vs_all_hl": 0.8826,
+      "human_nh_vs_slight_hl": 0.7371,
+      "sim_nh_vs_slight_hl": 0.7464,
+      "human_nh_vs_mild_mod_hl": 0.9582,
+      "sim_nh_vs_mild_mod_hl": 0.9555
+    },
+    "group_means_test_and_practice": {
+      "Normal": {
+        "n": 32,
+        "human_test_pc_mean": 96.91,
+        "sim_test_pc_mean": 96.7,
+        "human_test_pc_sd": 6.13,
+        "sim_test_pc_sd": 6.06,
+        "human_practice_pc_mean": 97.34,
+        "sim_practice_pc_mean": 99.09
+      },
+      "Slight": {
+        "n": 23,
+        "human_test_pc_mean": 86.93,
+        "sim_test_pc_mean": 86.85,
+        "human_test_pc_sd": 10.89,
+        "sim_test_pc_sd": 10.76,
+        "human_practice_pc_mean": 94.13,
+        "sim_practice_pc_mean": 93.89
+      },
+      "Mild": {
+        "n": 26,
+        "human_test_pc_mean": 76.94,
+        "sim_test_pc_mean": 76.98,
+        "human_test_pc_sd": 12.25,
+        "sim_test_pc_sd": 12.1,
+        "human_practice_pc_mean": 86.35,
+        "sim_practice_pc_mean": 86.11
+      },
+      "Moderate": {
+        "n": 17,
+        "human_test_pc_mean": 45.35,
+        "sim_test_pc_mean": 45.79,
+        "human_test_pc_sd": 15.67,
+        "sim_test_pc_sd": 15.47,
+        "human_practice_pc_mean": 51.47,
+        "sim_practice_pc_mean": 51.64
+      }
+    }
+  },
+  "fixed_snr_100_trials": [
+    {
+      "mode": "random",
+      "n_trials": 100,
+      "tvd_pct": 8.786,
+      "it_overall_mae_pct": 4.322,
+      "ppta_mae_vs_asymp_db": 1.407,
+      "ppta_retest_mad_db": 1.853,
+      "aroc_nh_vs_all_hl": 0.8783,
+      "aroc_nh_vs_slight_hl": 0.7408,
+      "aroc_nh_vs_mild_mod_hl": 0.9518
+    },
+    {
+      "mode": "block",
+      "n_trials": 100,
+      "tvd_pct": 8.486,
+      "it_overall_mae_pct": 4.219,
+      "ppta_mae_vs_asymp_db": 1.353,
+      "ppta_retest_mad_db": 1.779,
+      "aroc_nh_vs_all_hl": 0.88,
+      "aroc_nh_vs_slight_hl": 0.7378,
+      "aroc_nh_vs_mild_mod_hl": 0.956
+    },
+    {
+      "mode": "adaptive_var",
+      "n_trials": 100,
+      "tvd_pct": 8.934,
+      "it_overall_mae_pct": 5.804,
+      "ppta_mae_vs_asymp_db": 1.421,
+      "ppta_retest_mad_db": 1.643,
+      "aroc_nh_vs_all_hl": 0.8853,
+      "aroc_nh_vs_slight_hl": 0.7459,
+      "aroc_nh_vs_mild_mod_hl": 0.96
+    },
+    {
+      "mode": "adaptive_eig",
+      "n_trials": 100,
+      "tvd_pct": 8.658,
+      "it_overall_mae_pct": 5.138,
+      "ppta_mae_vs_asymp_db": 1.277,
+      "ppta_retest_mad_db": 1.554,
+      "aroc_nh_vs_all_hl": 0.8774,
+      "aroc_nh_vs_slight_hl": 0.7341,
+      "aroc_nh_vs_mild_mod_hl": 0.954
+    },
+    {
+      "mode": "adaptive_feature",
+      "n_trials": 100,
+      "tvd_pct": 8.814,
+      "it_overall_mae_pct": 5.696,
+      "ppta_mae_vs_asymp_db": 1.358,
+      "ppta_retest_mad_db": 1.67,
+      "aroc_nh_vs_all_hl": 0.8812,
+      "aroc_nh_vs_slight_hl": 0.738,
+      "aroc_nh_vs_mild_mod_hl": 0.9578
+    }
+  ],
+  "multisnr_designs_100_trials": [
+    {
+      "design": "single_ref",
+      "description": "Single SNR (5x @ Ref)",
+      "n_trials": 100,
+      "pop_hellinger_nh_hl": 0.2749,
+      "pop_hellinger_nh_slight": 0.1505,
+      "aroc_nh_vs_all_hl": 0.8797,
+      "aroc_nh_vs_slight_hl": 0.7421,
+      "aroc_nh_vs_mild_mod_hl": 0.9533,
+      "aroc_mild_vs_mod_hl": 0.9736,
+      "loocv_pta_mae_all_db": 5.258,
+      "loocv_pta_mae_hi_db": 6.171,
+      "surface_3d_tvd_pct": 16.556,
+      "srt50_mae_db": 6.103
+    },
+    {
+      "design": "rel_pm2",
+      "description": "Rel \u00b12 dB (-2..+2, 1 dB)",
+      "n_trials": 100,
+      "pop_hellinger_nh_hl": 0.2693,
+      "pop_hellinger_nh_slight": 0.1457,
+      "aroc_nh_vs_all_hl": 0.8869,
+      "aroc_nh_vs_slight_hl": 0.7494,
+      "aroc_nh_vs_mild_mod_hl": 0.9604,
+      "aroc_mild_vs_mod_hl": 0.9756,
+      "loocv_pta_mae_all_db": 5.045,
+      "loocv_pta_mae_hi_db": 5.952,
+      "surface_3d_tvd_pct": 19.723,
+      "srt50_mae_db": 15.376
+    },
+    {
+      "design": "rel_pm4",
+      "description": "Rel \u00b14 dB (-4..+4, 2 dB)",
+      "n_trials": 100,
+      "pop_hellinger_nh_hl": 0.2623,
+      "pop_hellinger_nh_slight": 0.1409,
+      "aroc_nh_vs_all_hl": 0.876,
+      "aroc_nh_vs_slight_hl": 0.737,
+      "aroc_nh_vs_mild_mod_hl": 0.9504,
+      "aroc_mild_vs_mod_hl": 0.9732,
+      "loocv_pta_mae_all_db": 5.213,
+      "loocv_pta_mae_hi_db": 6.092,
+      "surface_3d_tvd_pct": 16.777,
+      "srt50_mae_db": 11.61
+    },
+    {
+      "design": "rel_pm6",
+      "description": "Rel \u00b16 dB (-6..+6, 3 dB)",
+      "n_trials": 100,
+      "pop_hellinger_nh_hl": 0.2553,
+      "pop_hellinger_nh_slight": 0.137,
+      "aroc_nh_vs_all_hl": 0.8827,
+      "aroc_nh_vs_slight_hl": 0.7495,
+      "aroc_nh_vs_mild_mod_hl": 0.954,
+      "aroc_mild_vs_mod_hl": 0.9697,
+      "loocv_pta_mae_all_db": 5.105,
+      "loocv_pta_mae_hi_db": 5.995,
+      "surface_3d_tvd_pct": 15.971,
+      "srt50_mae_db": 9.982
+    },
+    {
+      "design": "rel_pm9",
+      "description": "Rel \u00b19 dB (-9..+9, 4.5 dB)",
+      "n_trials": 100,
+      "pop_hellinger_nh_hl": 0.2419,
+      "pop_hellinger_nh_slight": 0.1299,
+      "aroc_nh_vs_all_hl": 0.8769,
+      "aroc_nh_vs_slight_hl": 0.7401,
+      "aroc_nh_vs_mild_mod_hl": 0.9501,
+      "aroc_mild_vs_mod_hl": 0.9732,
+      "loocv_pta_mae_all_db": 5.12,
+      "loocv_pta_mae_hi_db": 5.968,
+      "surface_3d_tvd_pct": 15.882,
+      "srt50_mae_db": 8.561
+    },
+    {
+      "design": "rel_down_m6_0",
+      "description": "Rel Downward (-6..0, 1.5 dB)",
+      "n_trials": 100,
+      "pop_hellinger_nh_hl": 0.2565,
+      "pop_hellinger_nh_slight": 0.1479,
+      "aroc_nh_vs_all_hl": 0.8727,
+      "aroc_nh_vs_slight_hl": 0.7414,
+      "aroc_nh_vs_mild_mod_hl": 0.943,
+      "aroc_mild_vs_mod_hl": 0.9576,
+      "loocv_pta_mae_all_db": 5.471,
+      "loocv_pta_mae_hi_db": 6.286,
+      "surface_3d_tvd_pct": 29.578,
+      "srt50_mae_db": 36.695
+    },
+    {
+      "design": "rel_up_m3_p9",
+      "description": "Rel Upward (-3..+9, 3 dB)",
+      "n_trials": 100,
+      "pop_hellinger_nh_hl": 0.2625,
+      "pop_hellinger_nh_slight": 0.1314,
+      "aroc_nh_vs_all_hl": 0.8903,
+      "aroc_nh_vs_slight_hl": 0.7656,
+      "aroc_nh_vs_mild_mod_hl": 0.9571,
+      "aroc_mild_vs_mod_hl": 0.9767,
+      "loocv_pta_mae_all_db": 5.073,
+      "loocv_pta_mae_hi_db": 6.006,
+      "surface_3d_tvd_pct": 18.56,
+      "srt50_mae_db": 7.565
+    },
+    {
+      "design": "abs_shared",
+      "description": "Abs Shared (-6..+18, 6 dB)",
+      "n_trials": 100,
+      "pop_hellinger_nh_hl": 0.2093,
+      "pop_hellinger_nh_slight": 0.1149,
+      "aroc_nh_vs_all_hl": 0.8699,
+      "aroc_nh_vs_slight_hl": 0.7435,
+      "aroc_nh_vs_mild_mod_hl": 0.9375,
+      "aroc_mild_vs_mod_hl": 0.9497,
+      "loocv_pta_mae_all_db": 4.902,
+      "loocv_pta_mae_hi_db": 5.748,
+      "surface_3d_tvd_pct": 17.488,
+      "srt50_mae_db": 6.565
+    }
+  ],
+  "multisnr_modes_100_trials": [
+    {
+      "design": "rel_pm4",
+      "mode": "random",
+      "n_trials": 100,
+      "aroc_nh_vs_all_hl": 0.8788,
+      "aroc_nh_vs_slight_hl": 0.7321,
+      "loocv_pta_mae_all_db": 5.008,
+      "srt50_mae_db": 12.548
+    },
+    {
+      "design": "rel_pm4",
+      "mode": "block",
+      "n_trials": 100,
+      "aroc_nh_vs_all_hl": 0.8841,
+      "aroc_nh_vs_slight_hl": 0.7546,
+      "loocv_pta_mae_all_db": 5.064,
+      "srt50_mae_db": 12.02
+    },
+    {
+      "design": "rel_pm4",
+      "mode": "adaptive_consonant",
+      "n_trials": 100,
+      "aroc_nh_vs_all_hl": 0.879,
+      "aroc_nh_vs_slight_hl": 0.7429,
+      "loocv_pta_mae_all_db": 5.165,
+      "srt50_mae_db": 11.985
+    },
+    {
+      "design": "rel_pm4",
+      "mode": "adaptive_2d_snr",
+      "n_trials": 100,
+      "aroc_nh_vs_all_hl": 0.8663,
+      "aroc_nh_vs_slight_hl": 0.7246,
+      "loocv_pta_mae_all_db": 5.769,
+      "srt50_mae_db": 31.957
+    }
+  ]
+}

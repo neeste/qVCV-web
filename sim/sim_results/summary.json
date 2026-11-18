@@ -1,0 +1,21 @@
+{
+  "mode": "block",
+  "estimator": "empirical",
+  "n_listeners": 98,
+  "n_trials": 100,
+  "n_reps": 3,
+  "accuracy_mean_cell_mae_pct": 2.148963746281091,
+  "accuracy_sd_cell_mae_pct": 1.4738856928639585,
+  "accuracy_mean_tvd_pct": 11.819300604545997,
+  "accuracy_mean_max_row_tvd_pct": 25.854301817341998,
+  "accuracy_mean_diag_mae_pct": 6.814222170688818,
+  "accuracy_mean_pc_abs_err_pct": 2.4295667564417807,
+  "accuracy_mean_js_div_bits": 0.06094064085947176,
+  "accuracy_mean_it_overall_err_pct": 6.853834428796849,
+  "accuracy_mean_it_voicing_err_pct": 6.439506889394427,
+  "accuracy_mean_it_manner_err_pct": 5.1725294331631755,
+  "accuracy_mean_it_place_err_pct": 4.949317835366124,
+  "reliability_mean_cell_mad_pct": 2.6048237476808906,
+  "reliability_mean_tvd_pct": 14.326530612244898,
+  "reliability_mean_diag_mad_pct": 8.959183673469388
+}

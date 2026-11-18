@@ -49,3 +49,58 @@ At the conclusion of the 100-trial Graded Phase, the application instantly rende
 Clicking the "Download CSV Results" button exports the complete trial-by-trial history.
 - **Dynamic Naming:** The resulting file is automatically named using the metadata captured on the first screen: `qVCV_[ParticipantID]_[Ear]_[YYYYMMDD].csv` (e.g., `qVCV_NH001_L_20260511.csv`).
 - **Data Columns:** The CSV tracks Trial Number, Phase, Stimulus Filename, Target Consonant, and User Response.
+
+## 5. Headless Tracking Simulation & Evaluation (`sim/`)
+Mirroring `qCLS/sim/`, the `sim/` directory provides a standalone Python simulation and benchmark suite to evaluate confusion-matrix recovery accuracy, test-retest reliability, per-cell bias, trial allocation, and convergence across trial budgets:
+
+- `sim/qvcv_simulator.py`: Virtual-listener generator and ground-truth loader. Auto-generates an 18-listener synthetic clinical cohort (`sim/virtual_listeners.csv` / `.json`) across six audiological profiles (Normal Hearing, Mild Sloping HF, Steep Ski-Slope HF, Spectral Smearing, Temporal/Voicing Deficit, and Poor SIN / High Guess), and also loads empirical `qVCV_*.csv` trial exports or MATLAB `.mat` confusion matrices.
+- `sim/qvcv_trackers.py`: Stimulus-selection policies (`block`, `random`, `adaptive_var`, `adaptive_eig`, `adaptive_feature`) and confusion-matrix estimators (`empirical`, `dirichlet`, `feature_eb`).
+- `sim/qvcv_tracking_sim.py`: CLI harness evaluating per-repetition accuracy (Cell MAE/RMSE, Mean & Worst-Row Total Variation Distance, Per-Consonant ID MAE, Jensen-Shannon divergence, and Miller-Nicely phonetic feature information transmission for voicing, manner, and place), pairwise test-retest reliability, per-cell signed bias, and `--sweep_trials` convergence sweeps.
+- `sim/exp_adaptive_vs_block.py`: Full factorial benchmark comparing the shipped 5x20 block procedure against adaptive consonant selection and coupled phonetic-feature Empirical-Bayes estimation, outputting summary tables and diagnostic figures in `sim/benchmark_results/`.
+- `sim/qvcv_multisnr_simulator.py`, `sim/qvcv_multisnr_designs.py`, & `sim/exp_multisnr_study.py`: Continuous SNR-dependent virtual-listener simulator and stimulus-design benchmark comparing single-SNR repetitions against multi-SNR stimulus sets (consonant-relative and shared absolute 5-SNR grids) as well as 2D Consonant × SNR adaptive tracking vs. stratified block/random selection (`sim/multisnr_results/`).
+- `sim/export_human_listeners.py`, `sim/exp_human_calibrated_study.py`, `sim/exp_optimal_snrs_per_vcv.py`, & `sim/exp_suprathreshold_efficiency.py`: Calibrates virtual listeners directly to the empirical 98-listener `qtest_dataset` cohort (32 Normal, 23 Slight, 26 Mild, 17 Moderate; 19,600 unaided trials + 60-dB-SNR Practice ceiling + consonant-specific Plomp power-sum LTASS band masking + exact `mnr_vcv_pta` clinical PPTA regression) in `sim/human_data/`, and evaluates fixed-SNR tracking, unbiased LOOCV Hellinger $A_{\text{ROC}}$, optimal Single-SNR vs. 5-SNR stimulus sets, and static vs. trial-by-trial adaptive SNR efficiency for quantifying suprathreshold hearing deficits (`sim/human_calibrated_results/`).
+- `sim/qvcv_biophysical_model.py` & `sim/characterize_human_listeners.py`: Biophysical spectro-temporal + paired `qCLS` virtual-listener engine and human listener characterization suite. Extracts 3-epoch × 10-ERB intervocalic consonant templates, flanking `/a/` vowel masking spectra, F0 pitch periodicity, and envelope continuity directly from the `.wav` waveforms; couples 10-frequency `qCLS` equal-loudness contours (`96/98` paired listeners) to partition Outer-Hair-Cell (OHC) filter broadening & upward spread of masking vs. Inner-Hair-Cell (IHC) threshold loss and neural suprathreshold deficit; models directional cue-loss confusions (`V->Z`, `K->T`, `S->T`, `D->G`) + a `1.5%` attention-lapse floor; and characterizes both cohort (`98` unaided + `67` aided sessions) and standalone `qVCV_*.csv` files.
+- `sim/prototype_clinical_reports.py` & `sim/CLINICAL_INTERPRETER_SPEC.md`: Automated 1-page single-view clinical suprathreshold report generator combining the Pure-Tone Audiogram (`0.25–8 kHz`, BTNRH `er3a` / `legacy` RETSPLs), `qCLS` equal-loudness contours (`qCLS_ELC_*.csv`), and `qVCV` trial exports (`qVCV_*.csv` + optional Aided verification) into printable US Letter Landscape PDF/PNG clinical decision-support reports (`sim/clinical_reports/`).
+- **Companion Web App (`qPRO`):** The real-time C99/WebAssembly browser port of this clinical interpreter and `qPRO-Rx` hearing-aid prescription generator lives in the sibling repository [`neeste/qPRO`](https://github.com/neeste/qPRO) (`http://audres.org/qPRO/`).
+- `sim/ADAPTIVE_QVCV_ROADMAP.md`: Saved 3-phase implementation plan for adding real-time Web Audio adaptive SNR tracking alongside the standard fixed-SNR screening mode.
+
+Example commands from the repository root:
+```bash
+# Generate 1-page prototype clinical reports (PNG + PDF) for 6 real qtest_dataset cases & 98-listener norms
+python3 sim/prototype_clinical_reports.py
+
+# Generate a 1-page PDF/PNG report for any individual qtest_dataset listener (e.g. HL054)
+python3 sim/prototype_clinical_reports.py --listener_id HL054
+
+# Generate a 1-page clinical report from exported web-app qVCV + qCLS CSVs + Audiogram
+python3 sim/prototype_clinical_reports.py \
+  --qvcv_csv path/to/qVCV_NH001_L_20260511.csv \
+  --qcls_elc_csv path/to/qCLS_ELC_NH001_L_20260511.csv \
+  --audiogram 10,10,15,15,20,25,35,45,55,60 \
+  --transducer er3a
+
+# Calibrate & validate the biophysical spectro-temporal + qCLS listener model
+python3 sim/characterize_human_listeners.py
+
+# Characterize a single exported human qVCV CSV (+ optional 10-freq audiogram in dB HL)
+python3 sim/characterize_human_listeners.py --csv path/to/qVCV_NH001_L_20260511.csv \
+  --audiogram 10,10,15,15,20,25,35,45,55,60
+# Export 98 human-calibrated virtual listeners & run human-calibrated benchmarks
+python3 sim/export_human_listeners.py
+python3 sim/exp_human_calibrated_study.py
+python3 sim/exp_optimal_snrs_per_vcv.py
+python3 sim/exp_suprathreshold_efficiency.py
+
+# Compare Single-SNR vs. 5-SNR stimulus sets and adaptive vs. block/random selection
+python3 sim/exp_multisnr_study.py
+
+# Run the fixed-SNR multi-arm convergence & trial-efficiency benchmark
+python3 sim/exp_adaptive_vs_block.py --n_reps 30
+
+# Evaluate a single tracking mode & save confusion-matrix comparison plots
+python3 sim/qvcv_tracking_sim.py --mode adaptive_feature --n_trials 60 --n_reps 25 --save_plots
+
+# Run a convergence sweep on an exported empirical qVCV CSV (or directory of CSVs)
+python3 sim/qvcv_tracking_sim.py --ground_truth path/to/qVCV_NH001_L_20260511.csv \
+  --mode adaptive_feature --sweep_trials 20 40 60 80 100
+```

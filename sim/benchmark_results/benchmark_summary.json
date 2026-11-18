@@ -1,0 +1,50 @@
+{
+  "reference_arm": "block_empirical",
+  "reference_n_trials": 100,
+  "reference_mean_tvd_pct": 20.7083259376236,
+  "reference_max_row_tvd_pct": 37.338938645228644,
+  "reference_diag_mae_pct": 10.284883127122791,
+  "reference_retest_tvd_pct": 25.25338441890166,
+  "arms": {
+    "block_empirical": {
+      "eq_trials_mean_tvd": 100.0,
+      "eq_trials_max_row_tvd": 100.0,
+      "eq_trials_diag_mae": 100.0
+    },
+    "random_empirical": {
+      "eq_trials_mean_tvd": 111.50359849122184,
+      "eq_trials_max_row_tvd": 121.79161491570007,
+      "eq_trials_diag_mae": 113.0776611260203
+    },
+    "adaptive_empirical": {
+      "eq_trials_mean_tvd": 94.4095777882722,
+      "eq_trials_max_row_tvd": 91.53276716260487,
+      "eq_trials_diag_mae": 110.21879530595118
+    },
+    "block_dirichlet": {
+      "eq_trials_mean_tvd": 69.9868335627675,
+      "eq_trials_max_row_tvd": 72.43050480556857,
+      "eq_trials_diag_mae": 77.32080858072064
+    },
+    "adaptive_var": {
+      "eq_trials_mean_tvd": 60.812699680235454,
+      "eq_trials_max_row_tvd": 63.91921378730937,
+      "eq_trials_diag_mae": 73.54179861321873
+    },
+    "adaptive_eig": {
+      "eq_trials_mean_tvd": 61.44917349662674,
+      "eq_trials_max_row_tvd": 61.452422145119165,
+      "eq_trials_diag_mae": 73.61673239651738
+    },
+    "block_feature_eb": {
+      "eq_trials_mean_tvd": 35.33282865433648,
+      "eq_trials_max_row_tvd": 36.23795627190396,
+      "eq_trials_diag_mae": 53.74135762479262
+    },
+    "adaptive_feature": {
+      "eq_trials_mean_tvd": 29.257229107014886,
+      "eq_trials_max_row_tvd": 30.716228322516315,
+      "eq_trials_diag_mae": 51.3476415442984
+    }
+  }
+}

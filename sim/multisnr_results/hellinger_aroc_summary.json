@@ -1,0 +1,225 @@
+{
+  "aligned_N100": [
+    {
+      "design": "single_ref",
+      "label": "Single SNR (5x @ Optimal Ref)",
+      "mode": "block",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.48173227940751245,
+      "pop_hellinger_mild_modsev": 0.2515992568997083,
+      "aroc_nh_vs_all_hi_dNH": 0.9968296296296296,
+      "aroc_nh_vs_all_hi_diffH": 0.9982518518518518,
+      "aroc_nh_vs_mild_hi_dNH": 0.9905111111111111,
+      "aroc_nh_vs_mild_hi_diffH": 0.9952,
+      "aroc_mild_vs_modsev_dNH": 0.9506666666666667,
+      "aroc_mild_vs_modsev_diffH": 0.9591333333333333
+    },
+    {
+      "design": "rel_pm2",
+      "label": "Rel Narrow (Ref -2..+2 dB, 1 dB)",
+      "mode": "block",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.4673433753422803,
+      "pop_hellinger_mild_modsev": 0.24560149339710682,
+      "aroc_nh_vs_all_hi_dNH": 0.9967555555555555,
+      "aroc_nh_vs_all_hi_diffH": 0.9981925925925926,
+      "aroc_nh_vs_mild_hi_dNH": 0.9903333333333333,
+      "aroc_nh_vs_mild_hi_diffH": 0.9950888888888889,
+      "aroc_mild_vs_modsev_dNH": 0.9537333333333333,
+      "aroc_mild_vs_modsev_diffH": 0.9626
+    },
+    {
+      "design": "rel_pm4",
+      "label": "Rel Mod-Narrow (Ref -4..+4 dB, 2 dB)",
+      "mode": "block",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.42969425542798134,
+      "pop_hellinger_mild_modsev": 0.23005845668353855,
+      "aroc_nh_vs_all_hi_dNH": 0.9960814814814815,
+      "aroc_nh_vs_all_hi_diffH": 0.9983111111111111,
+      "aroc_nh_vs_mild_hi_dNH": 0.9882444444444445,
+      "aroc_nh_vs_mild_hi_diffH": 0.9952,
+      "aroc_mild_vs_modsev_dNH": 0.9578666666666666,
+      "aroc_mild_vs_modsev_diffH": 0.9602444444444445
+    },
+    {
+      "design": "rel_pm6",
+      "label": "Rel Medium (Ref -6..+6 dB, 3 dB)",
+      "mode": "block",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.38055563943241527,
+      "pop_hellinger_mild_modsev": 0.20999972288802873,
+      "aroc_nh_vs_all_hi_dNH": 0.9936296296296296,
+      "aroc_nh_vs_all_hi_diffH": 0.9978,
+      "aroc_nh_vs_mild_hi_dNH": 0.9809333333333333,
+      "aroc_nh_vs_mild_hi_diffH": 0.9941777777777778,
+      "aroc_mild_vs_modsev_dNH": 0.964,
+      "aroc_mild_vs_modsev_diffH": 0.9632444444444445
+    },
+    {
+      "design": "rel_pm9",
+      "label": "Rel Wide (Ref -9..+9 dB, 4.5 dB)",
+      "mode": "block",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.30746864504875826,
+      "pop_hellinger_mild_modsev": 0.18001744071525833,
+      "aroc_nh_vs_all_hi_dNH": 0.9831333333333333,
+      "aroc_nh_vs_all_hi_diffH": 0.9975851851851851,
+      "aroc_nh_vs_mild_hi_dNH": 0.9495555555555556,
+      "aroc_nh_vs_mild_hi_diffH": 0.9933555555555555,
+      "aroc_mild_vs_modsev_dNH": 0.9660666666666666,
+      "aroc_mild_vs_modsev_diffH": 0.9702222222222222
+    },
+    {
+      "design": "rel_up_m3_p9",
+      "label": "Rel Upward (Ref -3, 0, +3, +6, +9)",
+      "mode": "block",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.400938441465257,
+      "pop_hellinger_mild_modsev": 0.2396952757484748,
+      "aroc_nh_vs_all_hi_dNH": 0.9976814814814815,
+      "aroc_nh_vs_all_hi_diffH": 0.9988888888888889,
+      "aroc_nh_vs_mild_hi_dNH": 0.9930444444444444,
+      "aroc_nh_vs_mild_hi_diffH": 0.9966444444444444,
+      "aroc_mild_vs_modsev_dNH": 0.9762,
+      "aroc_mild_vs_modsev_diffH": 0.9742666666666666
+    },
+    {
+      "design": "abs_shared",
+      "label": "Abs Shared (-6, 0, +6, +12, +18 dB)",
+      "mode": "block",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.2658280316761655,
+      "pop_hellinger_mild_modsev": 0.15516455559274603,
+      "aroc_nh_vs_all_hi_dNH": 0.9883185185185185,
+      "aroc_nh_vs_all_hi_diffH": 0.9977555555555555,
+      "aroc_nh_vs_mild_hi_dNH": 0.9652666666666667,
+      "aroc_nh_vs_mild_hi_diffH": 0.9927777777777778,
+      "aroc_mild_vs_modsev_dNH": 0.9586888888888889,
+      "aroc_mild_vs_modsev_diffH": 0.9711555555555555
+    }
+  ],
+  "shifted5dB_N100": [
+    {
+      "design": "single_ref",
+      "n_trials": 100,
+      "aroc_nh_vs_mild_hi_diffH": 0.9965333333333334
+    },
+    {
+      "design": "rel_pm2",
+      "n_trials": 100,
+      "aroc_nh_vs_mild_hi_diffH": 0.9959333333333333
+    },
+    {
+      "design": "rel_pm4",
+      "n_trials": 100,
+      "aroc_nh_vs_mild_hi_diffH": 0.9973111111111111
+    },
+    {
+      "design": "rel_pm6",
+      "n_trials": 100,
+      "aroc_nh_vs_mild_hi_diffH": 0.9953777777777778
+    },
+    {
+      "design": "rel_pm9",
+      "n_trials": 100,
+      "aroc_nh_vs_mild_hi_diffH": 0.9938666666666667
+    },
+    {
+      "design": "rel_up_m3_p9",
+      "n_trials": 100,
+      "aroc_nh_vs_mild_hi_diffH": 0.9975555555555555
+    },
+    {
+      "design": "abs_shared",
+      "n_trials": 100,
+      "aroc_nh_vs_mild_hi_diffH": 0.9954666666666667
+    }
+  ],
+  "modes_N100": [
+    {
+      "design": "single_ref",
+      "label": "Single SNR (5x @ Optimal Ref)",
+      "mode": "random",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.48173227940751245,
+      "pop_hellinger_mild_modsev": 0.2515992568997083,
+      "aroc_nh_vs_all_hi_dNH": 0.9959777777777777,
+      "aroc_nh_vs_all_hi_diffH": 0.9974444444444445,
+      "aroc_nh_vs_mild_hi_dNH": 0.9879333333333333,
+      "aroc_nh_vs_mild_hi_diffH": 0.9928888888888889,
+      "aroc_mild_vs_modsev_dNH": 0.9560222222222222,
+      "aroc_mild_vs_modsev_diffH": 0.9620666666666666
+    },
+    {
+      "design": "single_ref",
+      "label": "Single SNR (5x @ Optimal Ref)",
+      "mode": "block",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.48173227940751245,
+      "pop_hellinger_mild_modsev": 0.2515992568997083,
+      "aroc_nh_vs_all_hi_dNH": 0.9969333333333333,
+      "aroc_nh_vs_all_hi_diffH": 0.9973111111111111,
+      "aroc_nh_vs_mild_hi_dNH": 0.9908,
+      "aroc_nh_vs_mild_hi_diffH": 0.9923555555555555,
+      "aroc_mild_vs_modsev_dNH": 0.9580888888888889,
+      "aroc_mild_vs_modsev_diffH": 0.9632444444444445
+    },
+    {
+      "design": "single_ref",
+      "label": "Single SNR (5x @ Optimal Ref)",
+      "mode": "adaptive_consonant",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.48173227940751245,
+      "pop_hellinger_mild_modsev": 0.2515992568997083,
+      "aroc_nh_vs_all_hi_dNH": 0.9972666666666666,
+      "aroc_nh_vs_all_hi_diffH": 0.9974444444444445,
+      "aroc_nh_vs_mild_hi_dNH": 0.9918,
+      "aroc_nh_vs_mild_hi_diffH": 0.9926,
+      "aroc_mild_vs_modsev_dNH": 0.9588444444444445,
+      "aroc_mild_vs_modsev_diffH": 0.9640222222222222
+    },
+    {
+      "design": "rel_pm4",
+      "label": "Rel Mod-Narrow (Ref -4..+4 dB, 2 dB)",
+      "mode": "random",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.42969425542798134,
+      "pop_hellinger_mild_modsev": 0.23005845668353855,
+      "aroc_nh_vs_all_hi_dNH": 0.9955259259259259,
+      "aroc_nh_vs_all_hi_diffH": 0.9966148148148148,
+      "aroc_nh_vs_mild_hi_dNH": 0.9868,
+      "aroc_nh_vs_mild_hi_diffH": 0.9912222222222222,
+      "aroc_mild_vs_modsev_dNH": 0.9578222222222222,
+      "aroc_mild_vs_modsev_diffH": 0.9586666666666667
+    },
+    {
+      "design": "rel_pm4",
+      "label": "Rel Mod-Narrow (Ref -4..+4 dB, 2 dB)",
+      "mode": "block",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.42969425542798134,
+      "pop_hellinger_mild_modsev": 0.23005845668353855,
+      "aroc_nh_vs_all_hi_dNH": 0.996125925925926,
+      "aroc_nh_vs_all_hi_diffH": 0.9964,
+      "aroc_nh_vs_mild_hi_dNH": 0.9883777777777778,
+      "aroc_nh_vs_mild_hi_diffH": 0.9901333333333333,
+      "aroc_mild_vs_modsev_dNH": 0.9632,
+      "aroc_mild_vs_modsev_diffH": 0.964
+    },
+    {
+      "design": "rel_pm4",
+      "label": "Rel Mod-Narrow (Ref -4..+4 dB, 2 dB)",
+      "mode": "adaptive_2d_snr",
+      "n_trials": 100,
+      "pop_hellinger_nh_hi": 0.42969425542798134,
+      "pop_hellinger_mild_modsev": 0.23005845668353855,
+      "aroc_nh_vs_all_hi_dNH": 0.9939481481481481,
+      "aroc_nh_vs_all_hi_diffH": 0.9963185185185185,
+      "aroc_nh_vs_mild_hi_dNH": 0.9821555555555556,
+      "aroc_nh_vs_mild_hi_diffH": 0.9913111111111111,
+      "aroc_mild_vs_modsev_dNH": 0.9682666666666667,
+      "aroc_mild_vs_modsev_diffH": 0.9689555555555556
+    }
+  ]
+}
