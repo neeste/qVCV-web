@@ -508,6 +508,8 @@ def _listener_from_empirical_trial_csv(csv_path: Path, smoothing: float = 0.05) 
     with open(csv_path, "r", newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
+            if "practice" in (row.get("Phase") or "").strip().lower():
+                continue
             target = row.get("Target", "").strip().upper()
             resp = row.get("Response", "").strip().upper()
             stim_file = row.get("Stimulus", "").strip()

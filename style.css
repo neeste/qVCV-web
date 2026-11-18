@@ -6,16 +6,20 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+    padding: 20px 12px;
+    box-sizing: border-box;
     color: #555;
 }
 
 #app-container {
     text-align: center;
     background: #fffdf0;
-    padding: 40px;
+    padding: 36px 40px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    max-width: 800px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    max-width: 860px;
+    width: 100%;
+    box-sizing: border-box;
     transition: max-width 0.3s ease;
 }
 
@@ -25,7 +29,7 @@ body {
 
 /* Instructions & Setup */
 #instructions-area {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-size: 16px;
     line-height: 1.5;
 }
@@ -53,29 +57,109 @@ body {
 .input-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-top: 15px;
+    align-items: stretch;
+    gap: 11px;
+    margin-top: 14px;
 }
 
 .input-group {
     display: flex;
     justify-content: space-between;
-    width: 280px;
+    gap: 12px;
+    width: 100%;
     align-items: center;
 }
 
 .input-group label {
     font-weight: bold;
     color: #4a4a32;
+    white-space: nowrap;
 }
 
 .input-group input, .input-group select {
-    padding: 8px;
+    padding: 7px 9px;
     border: 1px solid #c9c9a0;
     border-radius: 4px;
-    font-size: 16px;
-    width: 150px;
+    font-size: 15px;
+    width: 245px;
+    max-width: 65%;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.mode-hint {
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: #555538;
+    background: #fefecb;
+    border: 1px solid #e0e0b4;
+    border-radius: 4px;
+    padding: 6px 9px;
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: #4a4a32;
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+/* Optional Collapsible Audiogram */
+.audiogram-details {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px dotted #c9c9a0;
+    font-size: 13.5px;
+}
+
+.audiogram-details summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: #4a4a32;
+    user-select: none;
+}
+
+.aud-note {
+    font-size: 12px;
+    color: #666;
+    margin: 6px 0 8px 0;
+    line-height: 1.35;
+}
+
+.audiogram-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+}
+
+.aud-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fffef6;
+    border: 1px solid #dcdcb4;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.aud-cell span {
+    font-size: 11px;
+    font-weight: bold;
+    color: #555538;
+    margin-bottom: 2px;
+}
+
+.aud-cell input {
+    width: 100%;
+    padding: 4px 2px;
+    text-align: center;
+    border: 1px solid #c9c9a0;
+    border-radius: 3px;
+    font-size: 13px;
     box-sizing: border-box;
 }
 
@@ -85,28 +169,28 @@ body {
 
 .calib-options {
     margin: 15px auto;
-    padding: 10px;
+    padding: 10px 14px;
     background-color: #fefecb;
     border: 1px solid #e0e0b4;
     border-radius: 6px;
-    display: inline-block;
     text-align: left;
     width: fit-content;
     display: flex;
     flex-direction: column;
+    gap: 4px;
     align-items: flex-start;
 }
 
 .calib-options label {
     cursor: pointer;
     margin-left: 5px;
-    line-height: 1.8;
+    line-height: 1.6;
 }
 
 #calib-btn {
     background-color: #e0e0b4;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 17px;
     display: block;
     margin: 15px auto 0 auto;
 }
@@ -114,6 +198,30 @@ body {
 #calib-btn.active {
     background-color: #ffbaba;
     border-color: #ff7a7a;
+}
+
+/* Practice QC Banner */
+.qc-banner {
+    margin: 12px auto 16px auto;
+    padding: 10px 14px;
+    max-width: 620px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.45;
+    text-align: left;
+}
+
+.qc-banner.qc-warn {
+    background-color: #fff3cd;
+    border: 1px solid #e0a800;
+    color: #664d03;
+}
+
+.qc-banner.qc-ok {
+    background-color: #e6f6ec;
+    border: 1px solid #75b798;
+    color: #0f5132;
+    text-align: center;
 }
 
 /* Progress Bar */
@@ -136,11 +244,11 @@ progress {
 
 /* Buttons and Grid */
 #controls {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 button {
-    font-size: 18px;
+    font-size: 17px;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 6px;
@@ -150,14 +258,32 @@ button {
     margin: 5px;
 }
 
-button:hover {
+button:hover:not(:disabled) {
     background-color: #f0f0f0;
 }
 
-/* Match Step 2 button font weight and size to Step 1 header */
-#start-btn {
+button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+#start-btn, .primary-action-btn {
     font-weight: bold;
-    font-size: 1.17em; /* Matches h3 default size */
+    font-size: 1.08em;
+    background-color: #e8e8be;
+    border-color: #b5b584;
+    color: #3a3a24;
+}
+
+#start-btn:hover:not(:disabled), .primary-action-btn:hover:not(:disabled) {
+    background-color: #dedea8;
+}
+
+.secondary-btn {
+    background-color: #ffffff;
+    border-color: #b8b89a;
+    color: #4a4a32;
+    font-size: 16px;
 }
 
 #consonant-grid {
@@ -200,18 +326,117 @@ button:hover {
     color: #0b4a34 !important;
 }
 
+/* Clinical Summary Cards & Feature Strip */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 12px 0 10px 0;
+    text-align: left;
+}
+
+.summary-card {
+    background: #fdfdf4;
+    border: 1px solid #d4d4aa;
+    border-radius: 8px;
+    padding: 11px 13px;
+}
+
+.summary-card .card-label {
+    font-size: 11.5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #6b6b4c;
+    margin-bottom: 4px;
+}
+
+.summary-card .card-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2f2f1e;
+    margin-bottom: 3px;
+}
+
+.summary-card .card-sub {
+    font-size: 12px;
+    color: #5c5c42;
+    line-height: 1.35;
+}
+
+.status-pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 7px;
+    border-radius: 10px;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
+.pill-ok { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+.pill-mild { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+.pill-high { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+.feature-strip {
+    background: #f9f9e2;
+    border: 1px solid #dedeb2;
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 13px;
+    color: #44442c;
+    margin-bottom: 14px;
+}
+
+.heatmap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px auto 4px auto;
+    max-width: 580px;
+}
+
+.heatmap-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #4a4a32;
+}
+
+.heatmap-toggle {
+    display: inline-flex;
+    border: 1px solid #c9c9a0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.hm-btn {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    padding: 5px 11px;
+    font-size: 12.5px;
+    background: #fffef6;
+    color: #555;
+}
+
+.hm-btn.active {
+    background: #7a7a5c;
+    color: #ffffff;
+    font-weight: bold;
+}
+
 /* Tables */
 table {
     border-collapse: collapse;
-    margin: 20px auto;
+    margin: 8px auto 16px auto;
 }
 
 th, td {
     border: 1px solid #ccc;
-    width: 45px;
-    height: 45px;
+    width: 46px;
+    height: 42px;
     text-align: center;
-    font-size: 14px;
+    font-size: 13.5px;
 }
 
 th {
@@ -220,19 +445,19 @@ th {
 }
 
 .action-buttons {
-    margin-top: 20px;
+    margin-top: 14px;
 }
 
 /* --- TWO COLUMN START SCREEN LAYOUT --- */
 #app-container.two-column-mode {
-    max-width: 950px;
+    max-width: 980px;
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1.15fr 1fr;
     grid-template-areas: 
         "title instructions"
         "participant calibration"
         "participant controls";
-    gap: 10px 40px;
+    gap: 10px 34px;
     align-items: start;
     text-align: left;
 }
@@ -244,12 +469,12 @@ th {
 #app-container.two-column-mode #phase-title {
     grid-area: title;
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 #app-container.two-column-mode #instructions-area {
     grid-area: instructions;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
 }
@@ -267,7 +492,7 @@ th {
 #app-container.two-column-mode #controls {
     grid-area: controls;
     margin: 0;
-    text-align: left; /* Align button to left edge */
+    text-align: left;
 }
 
 #app-container.two-column-mode #participant-info h3,
@@ -276,10 +501,15 @@ th {
     text-align: left;
 }
 
-#app-container.two-column-mode .input-wrapper {
-    align-items: flex-start;
-}
-
 #app-container.two-column-mode .calib-options {
     margin: 15px 0;
+}
+
+@media (max-width: 780px) {
+    #app-container.two-column-mode {
+        display: block;
+    }
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
 }

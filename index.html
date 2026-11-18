@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>qVCV - Consonant Confusion Test</title>
+    <title>qVCV - Consonant Confusion &amp; Suprathreshold Test</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
 
         <div id="setup-area">
             <div id="participant-info">
-                <h3>Participant Information</h3>
+                <h3>Participant &amp; Protocol</h3>
                 <div class="input-wrapper">
                     <div class="input-group">
                         <label for="participant-id">Participant ID:</label>
@@ -30,27 +30,61 @@
                             <option value="Both">Both</option>
                         </select>
                     </div>
+                    <div class="input-group">
+                        <label for="test-condition">Condition:</label>
+                        <select id="test-condition">
+                            <option value="Unaided" selected>Unaided</option>
+                            <option value="Aided">Aided</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="test-mode">Test Mode:</label>
+                        <select id="test-mode">
+                            <option value="standard_100" selected>Standard (Fixed SNR, 100 trials)</option>
+                            <option value="adaptive_50">Adaptive-SNR (50 trials, ~2 min)</option>
+                            <option value="adaptive_100">Adaptive-SNR (100 trials, ~4 min)</option>
+                        </select>
+                    </div>
+                    <div id="mode-hint" class="mode-hint">
+                        Fixed per-consonant SNRs (5&times;20 blocks); preserves published PPTA norms.
+                    </div>
+                    <label class="checkbox-row" for="include-practice">
+                        <input type="checkbox" id="include-practice" checked>
+                        <span>Include 10-trial clear-speech Practice Phase (60 dB SNR)</span>
+                    </label>
                 </div>
+
+                <details id="audiogram-details" class="audiogram-details">
+                    <summary>Optional: Pure-Tone Audiogram (dB HL)</summary>
+                    <p class="aud-note">Enter known thresholds for Test Ear (even 0.5–4 kHz is sufficient) to separate Audibility Loss from Suprathreshold Clarity Deficit.</p>
+                    <div id="audiogram-grid" class="audiogram-grid"></div>
+                </details>
             </div>
 
             <div id="calibration-box">
                 <h3>Step 1: Audio Calibration</h3>
-                <p>Before beginning, click the button below to either adjust your computer's volume until the speech is at a comfortable listening level or play a continuous calibration sound.</p>
+                <p>Before beginning, play calibration audio to verify ear routing and adjust hardware output to a comfortable level or 60 dB SPL.</p>
                 
                 <div class="calib-options">
-                    <input type="radio" id="calib-speech" name="calib-source" value="speech" checked>
-                    <label for="calib-speech"><strong>Speech</strong> (continuous VCV)</label>
-                    <br>
-                    <input type="radio" id="calib-tone" name="calib-source" value="tone">
-                    <label for="calib-tone"><strong>Tone</strong> (1 kHz, 60 dB SPL)</label>
+                    <div>
+                        <input type="radio" id="calib-speech" name="calib-source" value="speech" checked>
+                        <label for="calib-speech"><strong>Speech</strong> (continuous VCV, 60 dB SPL)</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="calib-tone" name="calib-source" value="tone">
+                        <label for="calib-tone"><strong>Tone</strong> (1 kHz, 60 dB SPL)</label>
+                    </div>
                 </div>
 
-                <button id="calib-btn">Play Calibration Audio</button>
+                <button id="calib-btn" type="button">Play Calibration Audio</button>
             </div>
         </div>
 
+        <div id="practice-qc-banner" class="qc-banner hidden"></div>
+
         <div id="controls">
-            <button id="start-btn">Step 2: Ready to Begin Test</button>
+            <button id="repeat-practice-btn" type="button" class="secondary-btn hidden">Repeat Practice (10 trials)</button>
+            <button id="start-btn" type="button">Step 2: Ready to Begin Test</button>
         </div>
 
         <div id="interface" class="hidden">
@@ -62,13 +96,25 @@
         </div>
 
         <div id="results-area" class="hidden">
-            <h3>Results Heatmap (Actual vs Listener Response)</h3>
+            <div id="summary-cards" class="summary-cards"></div>
+            <div id="feature-strip" class="feature-strip"></div>
+
+            <div class="heatmap-header">
+                <h3>Confusion Matrix (Actual &bsol; Listener Response)</h3>
+                <div class="heatmap-toggle">
+                    <button type="button" id="hm-counts-btn" class="hm-btn active">Counts</button>
+                    <button type="button" id="hm-pct-btn" class="hm-btn">Row %</button>
+                </div>
+            </div>
             <div id="heatmap-container"></div>
+
             <div class="action-buttons">
-                <button id="download-btn">Download CSV Results</button>
+                <button id="download-btn" type="button" class="primary-action-btn">Download CSV Results</button>
+                <button id="new-run-btn" type="button" class="secondary-btn">New Run (Keep Setup)</button>
             </div>
         </div>
     </div>
+    <script src="qvcv_adaptive.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

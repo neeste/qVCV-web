@@ -13,42 +13,50 @@ The application is built entirely with **HTML5, CSS3, and JavaScript**. It requi
 Because the application relies on fetching local `.wav` files via JavaScript, modern browser security protocols (CORS) require the files to be served over HTTP/HTTPS rather than opened directly from a desktop folder.
 
 To set up the repository for deployment, ensure your directory matches this exact structure:
-- `index.html`: The main user interface and application controller.
-- `style.css`: The styling rules, grid layouts, and visual elements.
-- `app.js`: The core logic for tracking trials, block randomization, and generating the heatmap.
-- `Stimuli/practice/`: Must contain the 20 clear (60 SNR) `.wav` files.
-- `Stimuli/test/`: Must contain the 20 noise-masked `.wav` files.
+- `index.html`: The main user interface and Dual-Mode setup/results layout.
+- `style.css`: The styling rules, grid layouts, summary cards, and visual elements.
+- `qvcv_adaptive.js`: Calibrated psychometric engine (non-repeating schedulers, Hierarchical Bayesian Adaptive-SNR tracker, Plomp audibility/clarity decoder, published `PPTA` model, and Miller-Nicely phonetic feature transmission).
+- `app.js`: Web Audio API stereo ear-routing controller, 24-bit WAV preloader, live speech + LTASS noise mixer, Practice QC gate, and CSV exporter.
+- `Stimuli/practice/`: Must contain the 20 clear (`60 dB SNR`) `.wav` files.
+- `Stimuli/test/`: Must contain the 20 fixed-SNR noise-masked `.wav` files (used by `Standard` mode).
+- `Stimuli/ltass_noise.wav`: Calibrated `8.0`-second circularly periodic speech-shaped noise (`0 dB SNR` reference RMS = `0.01018`, used by `Adaptive-SNR` mode).
 
-## 3. Test Structure & Phasing
-The application utilizes a strict state machine to guide the participant through three distinct phases.
+## 3. Test Structure, Dual Modes & Phasing
+The application utilizes a strict state machine to guide the participant through setup, calibration, practice, and graded testing.
 
 ### Step 1: Configuration & Calibration
-- **Participant Data:** The audiologist or user inputs a "Participant ID" and selects the "Test Ear" (Left, Right, or Both) from a dropdown menu.
-- **Calibration:** The user selects a calibration source: either a continuous loop of clear speech tokens or a 1 kHz Tone. The external hardware volume should be adjusted until the output reaches a comfortable listening level or exactly 60 dB SPL.
+- **Participant & Protocol:** Enter `Participant ID`, `Test Ear` (`Left`, `Right`, or `Both` — routed strictly to the selected physical stereo channel[s] via Web Audio `ChannelMergerNode`), `Condition` (`Unaided` or `Aided`), and **`Test Mode`**:
+  - **`Standard (Fixed SNR, 100 trials)`** *(default)*: Presents the published per-consonant fixed SNRs (`5 × 20` blocks with zero consecutive consonant repeats), preserving 100% compatibility with published `PPTA` norms.
+  - **`Adaptive-SNR (50 trials, ~2 min)`** *(or `100 trials, ~4 min`)*: Mixes the 20 clear (`60 dB SNR`) speech tokens on the fly with random circular slices of `Stimuli/ltass_noise.wav` in `1-dB` steps (`-18` to `+30 dB SNR`), adapting SNR trial-by-trial via a coupled hierarchical Bayesian tracker over balanced 10-consonant blocks to target `~56%` accuracy (`2.36×` overall speedup; `4.05×` speedup for `PTA ≤ 25 dB HL`).
+- **Optional Pure-Tone Audiogram (`dB HL`):** Collapsible `250–8000 Hz` input; when provided, post-test scoring decomposes total Speech-in-Noise Loss into **Audibility Component (`dB`)** and **Suprathreshold Clarity Deficit (`dB ± SE`)**.
+- **Calibration:** Plays either continuous clear VCV speech or a `1 kHz` tone (`0.01 RMS` = `60 dB SPL`) routed through the selected `Test Ear`.
 
-### Step 2: Practice Phase
-- **Stimuli:** Presents 10 randomly selected clear stimuli (60 SNR). The algorithm ensures exactly one instance of each consonant is played.
-- **Feedback:** Provides visual feedback by highlighting the correct consonant button in green after the user responds.
-- **Instructions:** "Listen to the stimulus and select the consonant you heard. If you’re unsure, take your best guess. Select ??? only if you think you heard a consonant that is not one of the choices.".
+### Step 2: Practice Phase & Booth QC Gate
+- **Stimuli:** Presents 10 randomly selected clear stimuli (`60 dB SNR`, one per consonant) with green visual feedback on the target button.
+- **Booth QC Check:** Logs all Practice trials and displays the Practice score upon completion. If `< 8/10` (`< 80%`), displays an amber QC alert and offers a **Repeat Practice** button before starting the Graded phase. (On repeat runs via *New Run (Keep Setup)*, Practice can also be toggled off for rapid crossover retests.)
 
 ### Step 3: Graded Test Phase
-- **Stimuli:** Presents 100 noise-masked stimuli.
-- **Block Randomization:** To prevent cluster biases, the 20 unique test files are shuffled into blocks of 20. This process is repeated 5 times, ensuring even distribution and preventing the same consonant from playing consecutively.
+- **Standard Mode:** Presents `100` fixed-SNR stimuli (`5 × 20` blocks, alternating token parities, zero consecutive consonant repeats).
+- **Adaptive-SNR Mode:** Presents `50` (or `100`) live-mixed stimuli (`5 × 10` or `10 × 10` balanced consonant blocks, alternating Token 1 / Token 2, zero consecutive consonant repeats, `1-dB` expected-Fisher-information SNR selection).
 - **Feedback:** No visual feedback is provided to the listener.
 
-## 4. User Interface & Data Export
+## 4. User Interface, Clinical Readout & Data Export
 
 ### The Response Grid
-The interface features an 11-button grid. It includes the 10 target consonants (B, D, G, K, N, S, SH, T, V, Z) and an 11th catch-all button labeled "???". This 11th option is standard in psychometric testing to prevent forced-choice errors from skewing the final data. An invisible CSS spacer is utilized to ensure the 4-column grid remains perfectly symmetrical.
-A dynamic progress bar displays "Trial X of Y" above the grid to reduce patient anxiety and testing fatigue.
+The interface features an 11-button grid: the 10 target consonants (`B, D, G, K, N, S, SH, T, V, Z`) plus `???` to prevent forced-choice guessing artifacts, with a dynamic `Trial X of Y` progress bar.
 
-### Results & Visualization
-At the conclusion of the 100-trial Graded Phase, the application instantly renders an 11x10 Heatmap. This table plots the Actual Stimulus against the Listener Response, with the background color intensity of each cell mathematically scaled based on the frequency of that specific error.
+### Clinical Summary & Confusion Matrix
+At test completion, the Results screen displays:
+- **Accuracy, Practice QC & Median Reaction Time (`ms`)**
+- **Speech-in-Noise Loss (`dB ± SE` vs. 32-listener NH Norm)** with Low/Mid Voiced-Nasal (`B,D,G,N,V`) vs. High-Frequency Sibilant/Stop (`K,S,SH,T,Z`) sub-shifts
+- **Predicted PTA (`PPTA`, `dB HL`)** in Standard mode, or **Plomp Audibility vs. Suprathreshold Clarity Split (`dB`)** whenever an audiogram is entered
+- **Miller-Nicely Phonetic Feature Information Transmitted (`%`)** for **Voicing**, **Manner**, and **Place**
+- **10 × 11 Confusion Matrix Heatmap** with a **`Counts` | `Row %`** toggle
 
 ### CSV Export
-Clicking the "Download CSV Results" button exports the complete trial-by-trial history.
-- **Dynamic Naming:** The resulting file is automatically named using the metadata captured on the first screen: `qVCV_[ParticipantID]_[Ear]_[YYYYMMDD].csv` (e.g., `qVCV_NH001_L_20260511.csv`).
-- **Data Columns:** The CSV tracks Trial Number, Phase, Stimulus Filename, Target Consonant, and User Response.
+Clicking **Download CSV Results** exports both `Practice` and `Graded` trials (100% compatible with `qPRO`, `sim/`, `pandas`, and MATLAB):
+- **Dynamic Naming:** `qVCV_[ID]_[Ear]_[YYYYMMDD].csv` for Standard Unaided runs, and appends `AIDED` and/or `ADP50_[HHMM]` / `ADP100_[HHMM]` tags for Aided or Adaptive crossover runs so back-to-back study blocks never overwrite one another.
+- **Data Columns:** `Trial,Phase,Stimulus,Target,Response,Target_SNR_dB,RT_ms,Running_SNR_Loss_dB,Running_SE_dB,Final_SNR_Loss_dB,Mode,Condition,Ear`.
 
 ## 5. Headless Tracking Simulation & Evaluation (`sim/`)
 Mirroring `qCLS/sim/`, the `sim/` directory provides a standalone Python simulation and benchmark suite to evaluate confusion-matrix recovery accuracy, test-retest reliability, per-cell bias, trial allocation, and convergence across trial budgets:

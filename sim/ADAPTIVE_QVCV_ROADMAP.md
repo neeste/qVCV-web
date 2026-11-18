@@ -1,6 +1,6 @@
 # Adaptive qVCV Implementation Roadmap (3-Phase Plan)
 
-**Saved:** November 2026 (for 2027 implementation)  
+**Status:** **Phases 1 & 2 Implemented & Verified (November 18, 2026)** — Ready for Phase 3 Human Crossover Pilot (`index.html`, `qvcv_adaptive.js`, `app.js`, `Stimuli/ltass_noise.wav`, `sim/test_js_adaptive_parity.mjs`).  
 **Context:** Derived from human-calibrated tracking and multi-SNR simulations across 98 listeners (`32 Normal`, `23 Slight`, `26 Mild`, `17 Moderate`; 19,600 unaided trials + 60-dB-SNR Practice block + 10-frequency audiograms) in `sim/`.
 
 ---
@@ -41,7 +41,7 @@ Add an **Adaptive Suprathreshold Mode** alongside the existing **Standard Screen
 2. **State Model (100% Audiogram-Blind Online):**
    - Model behavioral threshold shift relative to NH 50%-logit reference $\tau_{0,c} = -\alpha_{0,c}/k$ as:
      $$\theta_{i,c} = G_i + \delta_{i,c}, \qquad G_i \sim \mathcal{N}(4.0,\, 6.5^2), \quad \delta_{i,c} \sim \mathcal{N}(0,\, 4.5^2)$$
-     with calibrated psychometric slope $k = 0.2335\text{ dB}^{-1}$, chance floor $\gamma = 1/11$, familiarized ceiling $c_{\max} = 0.996$, and token half-differences from `sim/human_data/human_listeners_98.json`.
+     with calibrated psychometric slope $k = 0.3356\text{ dB}^{-1}$, chance floor $\gamma = 1/11$, familiarized ceiling $c_{\max} = 0.996$, and token half-differences from `sim/human_data/human_listeners_98.json`.
    - Because cross-consonant coupling ($G_i$) shares information across all 10 VCVs, the first `10–15` trials warm-start the SNR neighborhood for every consonant.
 3. **Trial SNR Selection:**
    - Evaluate 3-point Gauss-Hermite quadrature expected Fisher information over candidate SNRs `[-18..+30 dB]` (`1-dB` step) under $\mathcal{N}(\hat{\theta}_{i,c}, \hat{\sigma}_{i,c}^2)$ and play the argmax SNR (targeting `~56%` correct).
