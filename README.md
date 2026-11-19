@@ -31,13 +31,15 @@ The application utilizes a strict state machine to guide the participant through
 - **Optional Pure-Tone Audiogram (`dB HL`):** Collapsible `250–8000 Hz` input; when provided, post-test scoring decomposes total Speech-in-Noise Loss into **Audibility Component (`dB`)** and **Suprathreshold Clarity Deficit (`dB ± SE`)**.
 - **Calibration:** Plays either continuous clear VCV speech or a `1 kHz` tone (`0.01 RMS` = `60 dB SPL`) routed through the selected `Test Ear`.
 
-### Step 2: Practice Phase & Booth QC Gate
+### Step 2: Instructions Pop-Up, Practice Phase & Booth QC Gate
+- **Instructions Pop-Up (`OK` Gate):** Clicking **Step 2: Ready to Begin Test** (and **Step 3: Begin Graded Test**) opens a modal Instructions dialog—matching `qCLS`—so no audio plays until the participant or clinician clicks **OK**.
 - **Stimuli:** Presents 10 randomly selected clear stimuli (`60 dB SNR`, one per consonant) with green visual feedback on the target button.
 - **Booth QC Check:** Logs all Practice trials and displays the Practice score upon completion. If `< 8/10` (`< 80%`), displays an amber QC alert and offers a **Repeat Practice** button before starting the Graded phase. (On repeat runs via *New Run (Keep Setup)*, Practice can also be toggled off for rapid crossover retests.)
 
-### Step 3: Graded Test Phase
+### Step 3: Graded Test Phase & Mid-Test Pause / Restart
 - **Standard Mode:** Presents `100` fixed-SNR stimuli (`5 × 20` blocks, alternating token parities, zero consecutive consonant repeats).
 - **Adaptive-SNR Mode:** Presents `50` (or `100`) live-mixed stimuli (`5 × 10` or `10 × 10` balanced consonant blocks, alternating Token 1 / Token 2, zero consecutive consonant repeats, `1-dB` expected-Fisher-information SNR selection).
+- **Mid-Test Pause / Stop (Keep Settings):** Clicking **Pause / Stop** during Practice or Graded testing immediately halts playback and offers three choices—**Resume Test (Replay Current Trial)**, **Restart Test from Trial 1 (Keep Settings)**, or **Stop & Return to Setup (Keep Settings)**—without losing Participant ID, Ear, Condition, Mode, or Audiogram entries.
 - **Feedback:** No visual feedback is provided to the listener.
 
 ## 4. User Interface, Clinical Readout & Data Export
@@ -55,7 +57,7 @@ At test completion, the Results screen displays:
 
 ### CSV Export
 Clicking **Download CSV Results** exports both `Practice` and `Graded` trials (100% compatible with `qPRO`, `sim/`, `pandas`, and MATLAB):
-- **Dynamic Naming:** `qVCV_[ID]_[Ear]_[YYYYMMDD].csv` for Standard Unaided runs, and appends `AIDED` and/or `ADP50_[HHMM]` / `ADP100_[HHMM]` tags for Aided or Adaptive crossover runs so back-to-back study blocks never overwrite one another.
+- **Dynamic Naming (Date + `HHMM` Timestamp on All Modes):** `qVCV_[ID]_[Ear]_[YYYYMMDD]_[HHMM].csv` for Standard Unaided runs (e.g., `qVCV_NH001_L_20261119_1105.csv`), and inserts `AIDED` and/or `ADP50` / `ADP100` tags before `[YYYYMMDD]_[HHMM]` for Aided or Adaptive runs so back-to-back blocks never overwrite one another.
 - **Data Columns:** `Trial,Phase,Stimulus,Target,Response,Target_SNR_dB,RT_ms,Running_SNR_Loss_dB,Running_SE_dB,Final_SNR_Loss_dB,Mode,Condition,Ear`.
 
 ## 5. Headless Tracking Simulation & Evaluation (`sim/`)

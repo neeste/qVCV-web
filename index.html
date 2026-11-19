@@ -7,6 +7,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <dialog id="instructions-modal" class="qvcv-modal" aria-labelledby="instructions-modal-title">
+        <div class="qvcv-modal-box">
+            <h3 id="instructions-modal-title">Instructions</h3>
+            <ul id="instructions-modal-list">
+                <li>Listen to the stimulus and select the consonant you heard.</li>
+                <li>If you&rsquo;re unsure, take your best guess.</li>
+                <li>Select <strong>???</strong> only if you think you heard a consonant that is not one of the choices.</li>
+            </ul>
+            <div class="qvcv-modal-actions">
+                <button id="instructions-back-btn" type="button" class="secondary-btn">Back</button>
+                <button id="instructions-ok-btn" type="button" class="primary-action-btn" autofocus>OK</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="pause-modal" class="qvcv-modal" aria-labelledby="pause-modal-title">
+        <div class="qvcv-modal-box">
+            <h3 id="pause-modal-title">Test Paused</h3>
+            <p id="pause-modal-status" class="pause-modal-status">Audio playback is paused. All participant and protocol settings are preserved.</p>
+            <div class="pause-modal-stack">
+                <button id="resume-test-btn" type="button" class="primary-action-btn" autofocus>Resume Test (Replay Current Trial)</button>
+                <button id="restart-test-btn" type="button" class="secondary-btn">Restart Test from Trial 1 (Keep Settings)</button>
+                <button id="abort-setup-btn" type="button" class="secondary-btn">Stop &amp; Return to Setup (Keep Settings)</button>
+            </div>
+        </div>
+    </dialog>
+
     <div id="app-container" class="two-column-mode">
         <h1 id="phase-title">qVCV Test</h1>
         
@@ -90,7 +117,10 @@
         <div id="interface" class="hidden">
             <div id="progress-container">
                 <progress id="test-progress" value="0" max="10"></progress>
-                <div id="progress-text">Trial <span id="trial-current">1</span> of <span id="trial-total">10</span></div>
+                <div class="progress-row">
+                    <div id="progress-text">Trial <span id="trial-current">1</span> of <span id="trial-total">10</span></div>
+                    <button id="pause-btn" type="button" class="pause-btn">Pause / Stop</button>
+                </div>
             </div>
             <div id="consonant-grid"></div>
         </div>

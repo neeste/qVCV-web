@@ -8,17 +8,16 @@
  *                    blocks, ~2 min; hierarchical Bayesian tracker).
  *   - adaptive_100 : High-precision Adaptive-SNR tracking (10x10 blocks, ~4 min).
  *
- * Audio:
- *   - Sample-accurate 16/24/32-bit PCM WAV decoding into Web Audio AudioBuffers.
- *   - True stereo ear routing (Left = ch0, Right = ch1, Both = ch0+ch1) for both
- *     calibration (Speech & 1 kHz 0.01-RMS Tone) and trial stimuli.
- *   - Live circular LTASS noise slicing + 10-ms raised-cosine RMS-compensated
- *     taper + headroom guard for Adaptive-SNR trials.
+ * Operator UX (per clinical feedback):
+ *   - Instructions pop-up modal on "Step 2: Ready to Begin Test" (and Step 3)
+ *     requiring "OK" before playing the first stimulus (matching qCLS).
+ *   - Mid-test "Pause / Stop" button allowing Resume (replaying current trial),
+ *     Restart from Trial 1 (keeping all settings), or Return to Setup (keeping settings).
+ *   - Date + HHMM timestamp on all exported CSV filenames (both Fixed and Adaptive).
  */
 
 const stimuliConsonants = window.QVCVEngine.STIM_CONSONANTS;
 const displayConsonants = window.QVCVEngine.DISP_CONSONANTS;
-const audFreqsHz = window.QVCVEngine.AUD_FREQS_HZ;
 const audFreqLabels = ["250", "500", "750", "1k", "1.5k", "2k", "3k", "4k", "6k", "8k"];
 
 const practiceFiles = [
@@ -43,8 +42,13 @@ const MODE_DESCRIPTIONS = {
     adaptive_100: "High-precision 1-dB LTASS noise tracking (~56% target) over 10\u00d710 balanced blocks (~4 min)."
 };
 
-let state = "IDLE";
+let state = "IDLE"; /* IDLE | PRACTICE | PRACTICE_DONE | GRADED | FINISHED */
 let currentMode = "standard_100";
+let currentRunUsedPractice = true;
+let pendingLaunchTarget = null; /* "PRACTICE" | "GRADED" | null */
+let isPaused = false;
+let pendingTimerId = null;
+
 let currentQueue = [];
 let currentTrialSpec = null;
 let adaptiveTracker = null;
@@ -100,6 +104,20 @@ const qcBanner = document.getElementById("practice-qc-banner");
 const audGridEl = document.getElementById("audiogram-grid");
 const hmCountsBtn = document.getElementById("hm-counts-btn");
 const hmPctBtn = document.getElementById("hm-pct-btn");
+
+// Dialog Elements
+const instructionsModal = document.getElementById("instructions-modal");
+const instructionsTitle = document.getElementById("instructions-modal-title");
+const instructionsList = document.getElementById("instructions-modal-list");
+const instructionsOkBtn = document.getElementById("instructions-ok-btn");
+const instructionsBackBtn = document.getElementById("instructions-back-btn");
+
+const pauseBtn = document.getElementById("pause-btn");
+const pauseModal = document.getElementById("pause-modal");
+const pauseModalStatus = document.getElementById("pause-modal-status");
+const resumeTestBtn = document.getElementById("resume-test-btn");
+const restartTestBtn = document.getElementById("restart-test-btn");
+const abortSetupBtn = document.getElementById("abort-setup-btn");
 
 /* Build Optional 10-Frequency Audiogram Inputs */
 audFreqLabels.forEach((lbl, idx) => {
@@ -162,10 +180,32 @@ calibBtn.addEventListener("click", () => {
     }
 });
 
-startBtn.addEventListener("click", () => startPhase(false));
-repeatPracticeBtn.addEventListener("click", () => startPhase(true));
+startBtn.addEventListener("click", () => requestPhaseStart(false));
+repeatPracticeBtn.addEventListener("click", () => requestPhaseStart(true));
 downloadBtn.addEventListener("click", downloadCSV);
-newRunBtn.addEventListener("click", resetForNextRun);
+newRunBtn.addEventListener("click", () => returnToSetupKeepSettings(true));
+
+/* Instructions Modal Events */
+instructionsOkBtn.addEventListener("click", confirmInstructionsAndLaunch);
+instructionsBackBtn.addEventListener("click", cancelInstructionsModal);
+instructionsModal.addEventListener("cancel", (e) => {
+    e.preventDefault();
+    cancelInstructionsModal();
+});
+
+/* Mid-Test Pause / Stop Modal Events */
+pauseBtn.addEventListener("click", openPauseModal);
+resumeTestBtn.addEventListener("click", resumePausedTest);
+restartTestBtn.addEventListener("click", restartFromTrialOneKeepSettings);
+abortSetupBtn.addEventListener("click", () => {
+    if (pauseModal.open) pauseModal.close();
+    isPaused = false;
+    returnToSetupKeepSettings(false);
+});
+pauseModal.addEventListener("cancel", (e) => {
+    /* Prevent accidental Escape key leaving test paused with no modal visible */
+    e.preventDefault();
+});
 
 hmCountsBtn.addEventListener("click", () => {
     heatmapView = "counts";
@@ -179,6 +219,28 @@ hmPctBtn.addEventListener("click", () => {
     hmCountsBtn.classList.remove("active");
     renderHeatmap();
 });
+
+/* --- TIMER & AUDIO CLEANUP HELPERS --- */
+
+function clearPendingTimer() {
+    if (pendingTimerId !== null) {
+        clearTimeout(pendingTimerId);
+        pendingTimerId = null;
+    }
+}
+
+function stopActiveTrialAudio() {
+    if (activeTrialSource) {
+        try {
+            activeTrialSource.onended = null;
+            activeTrialSource.stop();
+            activeTrialSource.disconnect();
+        } catch (_) {}
+        activeTrialSource = null;
+    }
+    isWaitingForAudio = true;
+    stimOffsetTimestampMs = null;
+}
 
 /* --- WEB AUDIO ENGINE & EAR ROUTING --- */
 
@@ -424,7 +486,7 @@ function stopCalibration() {
     isCalibrating = false;
 }
 
-/* --- TEST PHASES & STATE MACHINE --- */
+/* --- INSTRUCTIONS POP-UP MODAL & PHASE START --- */
 
 function readOptionalAudiogram() {
     const vals = new Array(10).fill(null);
@@ -439,15 +501,96 @@ function readOptionalAudiogram() {
     return count >= 2 ? vals : null;
 }
 
-async function startPhase(repeatPractice) {
+function openInstructionsModal(targetPhase) {
+    pendingLaunchTarget = targetPhase;
+    const nGraded = currentMode === "adaptive_50" ? 50 : 100;
+
+    if (targetPhase === "PRACTICE") {
+        instructionsTitle.innerText = "Practice Phase Instructions";
+        instructionsList.innerHTML =
+            "<li>You will hear <strong>10 clear speech sounds</strong> (&ldquo;a-consonant-a&rdquo;) without background noise.</li>" +
+            "<li>Listen to each stimulus and select the consonant you heard from the grid.</li>" +
+            "<li>After each choice, the target consonant will highlight in <strong>green</strong> as feedback.</li>" +
+            "<li>If you&rsquo;re unsure, take your best guess. Select <strong>???</strong> only if you think you heard a consonant that is not one of the choices.</li>" +
+            "<li>Click <strong>OK</strong> when you are ready to hear the first stimulus.</li>";
+    } else {
+        instructionsTitle.innerText = `Test Instructions (${nGraded} Trials)`;
+        instructionsList.innerHTML =
+            `<li>You will hear <strong>${nGraded} speech sounds</strong> in background noise (sometimes the noise will be louder than the speech).</li>` +
+            "<li>No green feedback will be shown during the test.</li>" +
+            "<li>Listen to each stimulus and select the consonant you heard.</li>" +
+            "<li>If you&rsquo;re unsure, take your best guess. Select <strong>???</strong> only if you think you heard a consonant that is not one of the choices.</li>" +
+            "<li>Click <strong>OK</strong> when you are ready to hear the first stimulus.</li>";
+    }
+
+    /* Show the consonant grid screen behind the modal (matching qCLS UX) */
+    appContainer.classList.remove("two-column-mode");
+    setupArea.classList.add("hidden");
+    qcBanner.classList.add("hidden");
+    startBtn.classList.add("hidden");
+    repeatPracticeBtn.classList.add("hidden");
+    interfaceDiv.classList.remove("hidden");
+    isWaitingForAudio = true;
+
+    if (targetPhase === "PRACTICE") {
+        phaseTitle.innerText = "Practice Phase";
+        totalPhaseTrials = 10;
+    } else {
+        const isAdaptive = currentMode !== "standard_100";
+        phaseTitle.innerText = isAdaptive
+            ? `Graded Test Phase (Adaptive-SNR, ${nGraded} Trials)`
+            : "Graded Test Phase (Standard, 100 Trials)";
+        totalPhaseTrials = nGraded;
+    }
+    currentTrialNumber = 0;
+    updateProgressUI();
+
+    instructionsModal.showModal();
+    instructionsOkBtn.focus();
+}
+
+function cancelInstructionsModal() {
+    if (instructionsModal.open) {
+        instructionsModal.close();
+    }
+    const prevTarget = pendingLaunchTarget;
+    pendingLaunchTarget = null;
+
+    /* If cancelled from Step 3 (after Practice completed), return to Practice Complete screen; otherwise return to Setup */
+    if (prevTarget === "GRADED" && state === "PRACTICE_DONE") {
+        interfaceDiv.classList.add("hidden");
+        qcBanner.classList.remove("hidden");
+        startBtn.classList.remove("hidden");
+        const hits = practiceResults.filter(r => r.correct).length;
+        const pct = practiceResults.length > 0 ? Math.round((100 * hits) / practiceResults.length) : 100;
+        if (pct < 80) repeatPracticeBtn.classList.remove("hidden");
+        phaseTitle.innerText = "Practice Complete";
+    } else {
+        returnToSetupKeepSettings(false);
+    }
+}
+
+function confirmInstructionsAndLaunch() {
+    const target = pendingLaunchTarget;
+    pendingLaunchTarget = null;
+    if (instructionsModal.open) {
+        instructionsModal.close();
+    }
+    if (target === "PRACTICE") {
+        beginPracticePhase();
+    } else if (target === "GRADED") {
+        beginGradedPhase();
+    }
+}
+
+async function requestPhaseStart(repeatPractice) {
     ensureAudioGraph();
     stopCalibration();
-    qcBanner.classList.add("hidden");
-    repeatPracticeBtn.classList.add("hidden");
 
     if (state === "IDLE" || repeatPractice) {
         currentMode = modeSelect.value;
         const doPractice = repeatPractice ? true : includePracticeChk.checked;
+        currentRunUsedPractice = doPractice;
 
         startBtn.disabled = true;
         const prevText = startBtn.innerText;
@@ -462,30 +605,24 @@ async function startPhase(repeatPractice) {
             return;
         }
         startBtn.disabled = false;
+        startBtn.innerText = prevText;
 
-        appContainer.classList.remove("two-column-mode");
-        setupArea.classList.add("hidden");
-
-        if (doPractice) {
-            beginPracticePhase();
-        } else {
-            beginGradedPhase();
-        }
+        openInstructionsModal(doPractice ? "PRACTICE" : "GRADED");
     } else if (state === "PRACTICE_DONE") {
-        beginGradedPhase();
+        openInstructionsModal("GRADED");
     }
 }
 
 function beginPracticePhase() {
+    clearPendingTimer();
+    stopActiveTrialAudio();
+    isPaused = false;
     state = "PRACTICE";
     practiceResults = [];
-    startBtn.classList.add("hidden");
-    interfaceDiv.classList.remove("hidden");
     phaseTitle.innerText = "Practice Phase";
     statusMsg.innerHTML =
         "Listen to the stimulus and select the consonant you heard.<br>" +
-        "If you\u2019re unsure, take your best guess.<br>" +
-        "Select <strong>???</strong> only if you think you heard a consonant that is not one of the choices.";
+        "If you\u2019re unsure, take your best guess. Select <strong>???</strong> only if you heard a consonant not shown.";
 
     const practiceSelection = practiceFiles
         .filter(f => f.includes("_1_"))
@@ -504,17 +641,16 @@ function beginPracticePhase() {
     totalPhaseTrials = currentQueue.length;
     currentTrialNumber = 0;
     updateProgressUI();
-    setupNextTrial();
+    advanceToNextTrial();
 }
 
 function beginGradedPhase() {
+    clearPendingTimer();
+    stopActiveTrialAudio();
+    isPaused = false;
     state = "GRADED";
     trialResults = [];
     resetConfusionMatrix();
-    startBtn.classList.add("hidden");
-    repeatPracticeBtn.classList.add("hidden");
-    qcBanner.classList.add("hidden");
-    interfaceDiv.classList.remove("hidden");
 
     const isAdaptive = currentMode !== "standard_100";
     const nTrials = currentMode === "adaptive_50" ? 50 : 100;
@@ -523,10 +659,8 @@ function beginGradedPhase() {
         ? `Graded Test Phase (Adaptive-SNR, ${nTrials} Trials)`
         : "Graded Test Phase (Standard, 100 Trials)";
     statusMsg.innerHTML =
-        "Test in progress. Background noise is present (sometimes louder than the speech). No feedback will be provided.<br><br>" +
-        "Listen to the stimulus and select the consonant you heard.<br>" +
-        "If you\u2019re unsure, take your best guess.<br>" +
-        "Select <strong>???</strong> only if you think you heard a consonant that is not one of the choices.";
+        "Test in progress (background noise added; no feedback).<br>" +
+        "Listen to the stimulus and select the consonant you heard, or take your best guess.";
 
     if (isAdaptive) {
         adaptiveTracker = window.QVCVEngine.createAdaptiveTracker();
@@ -539,8 +673,83 @@ function beginGradedPhase() {
     totalPhaseTrials = currentQueue.length;
     currentTrialNumber = 0;
     updateProgressUI();
-    setupNextTrial();
+    advanceToNextTrial();
 }
+
+/* --- MID-TEST PAUSE / RESUME / RESTART (KEEPING ALL SETTINGS) --- */
+
+function openPauseModal() {
+    if (state !== "PRACTICE" && state !== "GRADED") return;
+    isPaused = true;
+    clearPendingTimer();
+    stopActiveTrialAudio();
+    resetButtons();
+
+    const phaseLabel = state === "PRACTICE" ? "Practice Phase" : "Graded Test";
+    const trNum = Math.max(1, currentTrialNumber);
+    pauseModalStatus.innerHTML =
+        `<strong>${phaseLabel} &mdash; Trial ${trNum} of ${totalPhaseTrials}</strong><br>` +
+        `Playback is stopped. All participant, ear, mode, and audiogram settings are preserved.`;
+    resumeTestBtn.innerText = `Resume Test (Replay Trial ${trNum})`;
+    pauseModal.showModal();
+    resumeTestBtn.focus();
+}
+
+function resumePausedTest() {
+    if (!isPaused) return;
+    if (pauseModal.open) pauseModal.close();
+    isPaused = false;
+    if (currentTrialSpec) {
+        playCurrentTrialSpec(450);
+    } else {
+        advanceToNextTrial();
+    }
+}
+
+function restartFromTrialOneKeepSettings() {
+    if (pauseModal.open) pauseModal.close();
+    isPaused = false;
+    clearPendingTimer();
+    stopActiveTrialAudio();
+    resetButtons();
+
+    /* Restart from the beginning of the run (Practice if enabled on this run, else Graded) with all settings intact */
+    state = "IDLE";
+    practiceResults = [];
+    trialResults = [];
+    resetConfusionMatrix();
+    openInstructionsModal(currentRunUsedPractice ? "PRACTICE" : "GRADED");
+}
+
+function returnToSetupKeepSettings(completedRun) {
+    clearPendingTimer();
+    stopActiveTrialAudio();
+    stopCalibration();
+    resetButtons();
+    isPaused = false;
+    pendingLaunchTarget = null;
+    state = "IDLE";
+
+    resultsArea.classList.add("hidden");
+    interfaceDiv.classList.add("hidden");
+    qcBanner.classList.add("hidden");
+    repeatPracticeBtn.classList.add("hidden");
+
+    appContainer.classList.add("two-column-mode");
+    setupArea.classList.remove("hidden");
+    phaseTitle.innerText = "qVCV Test";
+    statusMsg.innerText = completedRun
+        ? "Ready for next run. Participant and protocol settings are preserved."
+        : "Test stopped. All participant and protocol settings are preserved.";
+    startBtn.innerText = "Step 2: Ready to Begin Test";
+    startBtn.classList.remove("hidden");
+
+    if (completedRun && practiceResults.length >= 5) {
+        includePracticeChk.checked = false;
+    }
+}
+
+/* --- TRIAL PRESENTATION & RESPONSE HANDLING --- */
 
 function updateProgressUI() {
     progressBar.max = totalPhaseTrials;
@@ -549,7 +758,8 @@ function updateProgressUI() {
     totalTrialSpan.innerText = totalPhaseTrials;
 }
 
-function setupNextTrial() {
+function advanceToNextTrial() {
+    if (isPaused) return;
     resetButtons();
     isWaitingForAudio = true;
     stimOffsetTimestampMs = null;
@@ -563,7 +773,6 @@ function setupNextTrial() {
     currentTrialNumber++;
     updateProgressUI();
 
-    /* In Adaptive-SNR mode, choose optimal trial SNR right before presentation */
     if (state === "GRADED" && adaptiveTracker) {
         const snrDb = adaptiveTracker.selectSnrForConsonant(spec.consonantIdx);
         const snrTag = snrDb >= 0 ? `+${snrDb}SNR` : `${snrDb}SNR`;
@@ -571,8 +780,19 @@ function setupNextTrial() {
         spec.stimulus = `VCV_a${spec.consonant.toLowerCase()}a_${spec.tokenIdx + 1}_${snrTag}.wav`;
     }
     currentTrialSpec = spec;
+    playCurrentTrialSpec(450);
+}
 
-    setTimeout(async () => {
+function playCurrentTrialSpec(delayMs) {
+    clearPendingTimer();
+    stopActiveTrialAudio();
+    const spec = currentTrialSpec;
+    if (!spec || isPaused) return;
+
+    pendingTimerId = setTimeout(async () => {
+        pendingTimerId = null;
+        if (isPaused || !currentTrialSpec) return;
+
         try {
             ensureAudioGraph();
             let playBuf = null;
@@ -587,12 +807,15 @@ function setupNextTrial() {
                 playBuf = await loadAudioBuffer("Stimuli/test/" + spec.stimulus);
             }
 
+            if (isPaused) return;
+
             const src = audioCtx.createBufferSource();
             src.buffer = playBuf;
             src.connect(monoBus);
             activeTrialSource = src;
 
             src.onended = () => {
+                if (activeTrialSource !== src || isPaused) return;
                 activeTrialSource = null;
                 stimOffsetTimestampMs = performance.now();
                 isWaitingForAudio = false;
@@ -600,14 +823,16 @@ function setupNextTrial() {
             src.start();
         } catch (err) {
             console.error("Stimulus playback failed:", err);
-            stimOffsetTimestampMs = performance.now();
-            isWaitingForAudio = false;
+            if (!isPaused) {
+                stimOffsetTimestampMs = performance.now();
+                isWaitingForAudio = false;
+            }
         }
-    }, 450);
+    }, delayMs);
 }
 
 function handleResponse(selected) {
-    if (isWaitingForAudio || !currentTrialSpec) return;
+    if (isPaused || isWaitingForAudio || !currentTrialSpec) return;
 
     const rtMs = stimOffsetTimestampMs !== null
         ? Math.max(0, Math.round(performance.now() - stimOffsetTimestampMs))
@@ -625,13 +850,16 @@ function handleResponse(selected) {
             rtMs,
             correct: isCorrect
         });
-        const buttons = document.querySelectorAll(".consonant-btn");
-        buttons.forEach(btn => {
+        document.querySelectorAll(".consonant-btn").forEach(btn => {
             if (btn.dataset.consonant === actual) {
                 btn.classList.add("correct-highlight");
             }
         });
-        setTimeout(setupNextTrial, 1400);
+        clearPendingTimer();
+        pendingTimerId = setTimeout(() => {
+            pendingTimerId = null;
+            advanceToNextTrial();
+        }, 1400);
     } else if (state === "GRADED") {
         let runningLossDb = null;
         let runningSeDb = null;
@@ -659,11 +887,18 @@ function handleResponse(selected) {
             runningSeDb
         });
         confusionMatrix[actual][selected]++;
-        setTimeout(setupNextTrial, 420);
+        clearPendingTimer();
+        pendingTimerId = setTimeout(() => {
+            pendingTimerId = null;
+            advanceToNextTrial();
+        }, 420);
     }
 }
 
 function endPhase() {
+    clearPendingTimer();
+    stopActiveTrialAudio();
+    currentTrialSpec = null;
     interfaceDiv.classList.add("hidden");
 
     if (state === "PRACTICE") {
@@ -675,7 +910,7 @@ function endPhase() {
 
         phaseTitle.innerText = "Practice Complete";
         statusMsg.innerText =
-            `You have completed the practice phase. The graded test will now begin (${nTest} trials in background noise, without feedback).`;
+            `You have completed the practice phase. Click Step 3 to view the test instructions and begin (${nTest} trials in background noise).`;
 
         qcBanner.classList.remove("hidden", "qc-warn", "qc-ok");
         if (pct < 80) {
@@ -702,27 +937,6 @@ function endPhase() {
         resultsArea.classList.remove("hidden");
         renderClinicalSummary();
         renderHeatmap();
-    }
-}
-
-function resetForNextRun() {
-    stopCalibration();
-    state = "IDLE";
-    resultsArea.classList.add("hidden");
-    interfaceDiv.classList.add("hidden");
-    qcBanner.classList.add("hidden");
-    repeatPracticeBtn.classList.add("hidden");
-
-    appContainer.classList.add("two-column-mode");
-    setupArea.classList.remove("hidden");
-    phaseTitle.innerText = "qVCV Test";
-    statusMsg.innerText = "Ready for next run. Verify Mode / Ear / Condition and click Step 2.";
-    startBtn.innerText = "Step 2: Ready to Begin Test";
-    startBtn.classList.remove("hidden");
-
-    /* After completing at least one Practice block, uncheck Practice by default for fast crossover retests */
-    if (practiceResults.length >= 5) {
-        includePracticeChk.checked = false;
     }
 }
 
@@ -774,7 +988,6 @@ function renderClinicalSummary() {
         : "Practice: skipped";
     const rtStr = summary.medianRtMs !== null ? `Median RT: ${summary.medianRtMs} ms` : "";
 
-    /* Normative status badge vs 32-NH cohort (SD = 1.61 dB -> 95% upper bound ~ +2.6 dB) */
     let pillClass = "pill-ok";
     let pillText = "Normal Range";
     if (summary.globalSnrLossDb > 6.0) {
@@ -881,7 +1094,7 @@ function renderHeatmap() {
     container.innerHTML = html;
 }
 
-/* --- CSV EXPORT (100% compatible with qPRO, Python sim/, pandas, MATLAB) --- */
+/* --- CSV EXPORT (Date + HHMM Timestamp on Both Fixed & Adaptive Runs) --- */
 
 function downloadCSV() {
     let pId = document.getElementById("participant-id").value.trim() || "UNKNOWN";
@@ -920,16 +1133,18 @@ function downloadCSV() {
     const dd = String(date.getDate()).padStart(2, "0");
     const hh = String(date.getHours()).padStart(2, "0");
     const min = String(date.getMinutes()).padStart(2, "0");
-    const dateString = `${yyyy}${mm}${dd}`;
+    const dateTimeStr = `${yyyy}${mm}${dd}_${hh}${min}`;
 
-    /* Preserve exact qVCV_[ID]_[Ear]_[YYYYMMDD].csv for Standard Unaided runs;
-     * append mode/condition/time suffix for Adaptive or Aided runs so crossover blocks never overwrite each other. */
-    let tagParts = [];
+    /* Include date + HHMM timestamp on ALL tests (both Fixed Standard and Adaptive):
+     *   Standard Unaided : qVCV_NH001_L_20261119_1105.csv
+     *   Adaptive Unaided : qVCV_NH001_L_ADP50_20261119_1105.csv
+     *   Aided            : qVCV_NH001_L_AIDED_20261119_1105.csv */
+    const tagParts = [];
     if (cond === "Aided") tagParts.push("AIDED");
-    if (currentMode === "adaptive_50") tagParts.push(`ADP50_${hh}${min}`);
-    else if (currentMode === "adaptive_100") tagParts.push(`ADP100_${hh}${min}`);
+    if (currentMode === "adaptive_50") tagParts.push("ADP50");
+    else if (currentMode === "adaptive_100") tagParts.push("ADP100");
     const extraTag = tagParts.length > 0 ? `_${tagParts.join("_")}` : "";
-    const filename = `qVCV_${pId}_${earCode}${extraTag}_${dateString}.csv`;
+    const filename = `qVCV_${pId}_${earCode}${extraTag}_${dateTimeStr}.csv`;
 
     const blob = new Blob([rows.join("\n") + "\n"], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
